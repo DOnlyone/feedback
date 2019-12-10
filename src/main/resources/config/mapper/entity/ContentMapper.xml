@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.bnuz.fb.mapper.ContentMapper">
+	<resultMap id="BaseResultMap"
+		type="edu.bnuz.fb.entity.Content">
+		<result column="ID" property="id" jdbcType="BIGINT" />
+		<result column="CREATEUSER" property="createuser"
+			jdbcType="BIGINT" />
+		<result column="CONTEXT" property="context" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="INTEGER" />
+		<result column="CTEATE_DATE" property="cteateDate"
+			jdbcType="DATE" />
+		<result column="CURRENT_NODE" property="currentNode"
+			jdbcType="BIGINT" />
+		<result column="STATUS" property="status" jdbcType="INTEGER" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, CREATEUSER, CONTEXT, TYPE, CTEATE_DATE, CURRENT_NODE, STATUS, TITLE
+	</sql>
+
+	<select id="selectByParam" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.entity.Content">
+		select
+		<include refid="Base_Column_List" />
+		from CONTENT
+		<where>
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="createuser != null">
+				#{createuser,jdbcType=BIGINT},
+			</if>
+			<if test="context != null">
+				#{context,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="cteateDate != null">
+				#{cteateDate,jdbcType=DATE},
+			</if>
+			<if test="currentNode != null">
+				#{currentNode,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+		</where>
+
+	</select>
+
+
+	<insert id="insert"  parameterType="edu.bnuz.fb.entity.Content">
+		insert into CONTENT (CREATEUSER, CONTEXT,
+		TYPE, CTEATE_DATE, CURRENT_NODE,
+		STATUS, TITLE)
+		values ( #{createuser,jdbcType=BIGINT},
+		#{context,jdbcType=VARCHAR},
+		#{type,jdbcType=INTEGER}, #{cteateDate,jdbcType=DATE}, #{currentNode,jdbcType=BIGINT},
+		#{status,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertSelective"
+		parameterType="edu.bnuz.fb.entity.Content">
+		insert into CONTENT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="createuser != null">
+				CREATEUSER,
+			</if>
+			<if test="context != null">
+				CONTEXT,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="cteateDate != null">
+				CTEATE_DATE,
+			</if>
+			<if test="currentNode != null">
+				CURRENT_NODE,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="createuser != null">
+				#{createuser,jdbcType=BIGINT},
+			</if>
+			<if test="context != null">
+				#{context,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="cteateDate != null">
+				#{cteateDate,jdbcType=DATE},
+			</if>
+			<if test="currentNode != null">
+				#{currentNode,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+
+	<update id="updateByExample"
+		parameterType="edu.bnuz.fb.entity.Content">
+		update CONTENT
+		set
+
+		<if test="createuser != null">
+			CREATEUSER = #{createuser,jdbcType=BIGINT},
+		</if>
+		<if test="context != null">
+			CONTEXT = #{context,jdbcType=VARCHAR},
+		</if>
+		<if test="type != null">
+			TYPE = #{type,jdbcType=INTEGER},
+		</if>
+		<if test="currentNode != null">
+			CURRENT_NODE = #{currentNode,jdbcType=BIGINT},
+		</if>
+		<if test="status != null">
+			#{status,jdbcType=INTEGER},STATUS = #{status,jdbcType=INTEGER},
+		</if>
+		<if test="title != null">
+			TITLE = #{title,jdbcType=VARCHAR}
+		</if>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
