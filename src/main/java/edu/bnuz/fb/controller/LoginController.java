@@ -7,41 +7,41 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.bnuz.fb.rbac.entity.User;
 
-@RestController
+@Controller
 public class LoginController {
 
+	@ResponseBody
     @RequestMapping("/login")
     public String login(User user) {
+		System.out.println("username"+user.getUserName()+"password"+user.getPassword());
         //添加用户认证信息
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
-                user.getUserName(),
-                user.getPassword()
-        );
-        try {
-            //进行验证，这里可以捕获异常，然后返回对应信息
-            subject.login(usernamePasswordToken);
-//            subject.checkRole("admin");
-//            subject.checkPermissions("query", "add");
-        } catch (AuthenticationException e) {
-            e.printStackTrace();
-            return "账号或密码错误！";
-        } catch (AuthorizationException e) {
-            e.printStackTrace();
-            return "没有权限";
-        }
-        return "login success";
+		/*
+		 * Subject subject = SecurityUtils.getSubject(); UsernamePasswordToken
+		 * usernamePasswordToken = new UsernamePasswordToken( user.getUserName(),
+		 * user.getPassword() ); try { //进行验证，这里可以捕获异常，然后返回对应信息
+		 * subject.login(usernamePasswordToken); // subject.checkRole("admin"); //
+		 * subject.checkPermissions("query", "add"); } catch (AuthenticationException e)
+		 * { e.printStackTrace(); return "账号或密码错误！"; } catch (AuthorizationException e)
+		 * { e.printStackTrace(); return "没有权限"; }
+		 */
+        return "index";
     }
      //注解验角色和权限
-    @RequiresRoles("admin")
-    @RequiresPermissions("add")
+	/*
+	 * @RequiresRoles("admin")
+	 * 
+	 * @RequiresPermissions("add")
+	 */
     @RequestMapping("/index")
     public String index() {
+    	
         return "index";
     }
 }
