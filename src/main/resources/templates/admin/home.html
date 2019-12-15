@@ -4,12 +4,12 @@
     <title>学生成绩管理系统 管理员后台</title>
     <link rel="shortcut icon" href="favicon.ico"/>
 	<link rel="bookmark" href="favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="easyui/css/default.css" />
-    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
-    <script type="text/javascript" src="easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src='easyui/js/outlook2.js'> </script>
+    <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="/webjars/easyui-186/1.8.6/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="/webjars/easyui-186/1.8.6/themes/icon.css" />
+    <script type="text/javascript" src="/webjars/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/easyui-186/1.8.6/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src='/static/js/outlook2.js'> </script>
     <script type="text/javascript">
 	 var _menus = {"menus":[
 						{"menuid":"1","icon":"","menuname":"成绩统计分析",
@@ -19,12 +19,12 @@
 						},
 						{"menuid":"2","icon":"","menuname":"学生信息管理",
 							"menus":[
-									{"menuid":"21","menuname":"学生列表","icon":"icon-user-student","url":"StudentServlet?method=toStudentListView"},
+									{"menuid":"21","menuname":"学生列表","icon":"icon-user-student","url":"/studentAdmin"},
 								]
 						},
 						{"menuid":"3","icon":"","menuname":"教师信息管理",
 							"menus":[
-									{"menuid":"31","menuname":"教师列表","icon":"icon-user-teacher","url":"TeacherServlet?method=toTeacherListView"},
+									{"menuid":"31","menuname":"教师列表","icon":"icon-user-teacher","url":"/teacherHome"},
 								]
 						},
 						{"menuid":"4","icon":"","menuname":"基础信息管理",
@@ -68,7 +68,9 @@
     </div>
     <div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
         <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
-			<jsp:include page="/WEB-INF/view/admin/welcome.html" />
+        <iframe width=0 height=0 src="/admin/welcome.html"></iframe>
+<!--         	<div th:replace="~{commons/header::topbar}"></div> -->
+<!-- 			<jsp:include page="/WEB-INF/view/admin/welcome.html" /> -->
 		</div>
     </div>
 	

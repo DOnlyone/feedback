@@ -1,11 +1,15 @@
 package edu.bnuz.fb.rbac.entity;
 
+import java.util.List;
+
 public class Role {
     private Long roleId;
 
     private String roleName;
 
     private String desc;
+    
+    private List<Authority> authList;
 
     public Long getRoleId() {
         return roleId;
@@ -30,4 +34,19 @@ public class Role {
     public void setDesc(String desc) {
         this.desc = desc == null ? null : desc.trim();
     }
+
+	public List<Authority> getAuthList() {
+		return authList;
+	}
+
+	public void setAuthList(List<Authority> authList) {
+		this.authList = authList;
+	}
+
+	@Override
+	public String toString() {
+		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", desc=" + desc + ", authList=" + authList + "]";
+	}
+    
+    
 }

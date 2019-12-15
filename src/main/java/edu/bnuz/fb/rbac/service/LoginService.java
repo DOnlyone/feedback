@@ -28,5 +28,8 @@ public interface LoginService {
 	public List<RoleToAuth> getRoleTAuth(Long roleId);
 	
 	
+	public User getUserAuthority(String username) ;
+	
+	
 
 }

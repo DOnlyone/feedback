@@ -1,5 +1,7 @@
 package edu.bnuz.fb.rbac.entity;
 
+import java.util.List;
+
 public class User {
     private Long id;
 
@@ -18,8 +20,18 @@ public class User {
     private Integer phone;
 
     private Byte sex;
+    
+    private List<Role> roleList;
 
-    public Long getId() {
+    public List<Role> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<Role> roleList) {
+		this.roleList = roleList;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -90,4 +102,13 @@ public class User {
     public void setSex(Byte sex) {
         this.sex = sex;
     }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userNo=" + userNo + ", userName=" + userName + ", password=" + password
+				+ ", classNum=" + classNum + ", garde=" + garde + ", email=" + email + ", phone=" + phone + ", sex="
+				+ sex + ", roleList=" + roleList + "]";
+	}
+    
+    
 }
