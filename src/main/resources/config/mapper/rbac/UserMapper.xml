@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.bnuz.fb.rbac.UserMapper" >
+  <resultMap id="BaseResultMap" type="edu.bnuz.fb.rbac.entity.User" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="CLASS" property="class" jdbcType="INTEGER" />
+    <result column="GARDE" property="garde" jdbcType="INTEGER" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="INTEGER" />
+    <result column="SEX" property="sex" jdbcType="TINYINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, USER_ID, USER_NAME, PASSWORD, CLASS, GARDE, EMAIL, PHONE, SEX
+  </sql>
+
+  <select id="findUsers" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER
+    <where>
+      <if test="id != null" >
+       and  ID=#{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        and USER_ID=#{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        and USER_NAME= #{userName,jdbcType=VARCHAR},
+      </if>
+
+      <if test="class != null" >
+        and CLASS = #{class,jdbcType=INTEGER},
+      </if>
+      <if test="garde != null" >
+        and GARDE = #{garde,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        and EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        and PHONE = #{phone,jdbcType=INTEGER},
+      </if>
+    </where>
+
+  </select>
+
+  <insert id="createUser" parameterType="edu.bnuz.fb.rbac.entity.User" >
+    insert into USER (ID, USER_ID, USER_NAME,
+      PASSWORD, CLASS, GARDE,
+      EMAIL, PHONE, SEX)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{class,jdbcType=INTEGER}, #{garde,jdbcType=INTEGER},
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, #{sex,jdbcType=TINYINT})
+  </insert>
+
+  <update id="updateUserInfo" parameterType="edu.bnuz.fb.rbac.entity.User" >
+    update USER
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="class != null" >
+        CLASS = #{class,jdbcType=INTEGER},
+      </if>
+      <if test="garde != null" >
+        GARDE = #{garde,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from USER
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+
+
+
+
+
+  <insert id="insertSelective" parameterType="edu.bnuz.fb.rbac.entity.User" >
+    insert into USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="class != null" >
+        CLASS,
+      </if>
+      <if test="garde != null" >
+        GARDE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="class != null" >
+        #{class,jdbcType=INTEGER},
+      </if>
+      <if test="garde != null" >
+        #{garde,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+
+
+
+
+
+
+</mapper>
