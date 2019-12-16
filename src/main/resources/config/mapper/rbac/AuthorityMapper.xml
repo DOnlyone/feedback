@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.bnuz.fb.rbac.AuthorityMapper" >
+  <resultMap id="BaseResultMap" type="edu.bnuz.fb.rbac.entity.Authority" >
+    <result column="AUTH_ID" property="authId" jdbcType="BIGINT" />
+    <result column="AUTH_NAME" property="authName" jdbcType="VARCHAR" />
+    <result column="DESC" property="desc" jdbcType="CHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    AUTH_ID, AUTH_NAME, DESC
+</sql>
+
+
+  <insert id="addAuthority" parameterType="edu.bnuz.fb.rbac.entity.Authority" >
+    insert into AUTHORITY (AUTH_ID, AUTH_NAME, DESC
+      )
+    values (#{authId,jdbcType=BIGINT}, #{authName,jdbcType=VARCHAR}, #{desc,jdbcType=CHAR}
+      )
+  </insert>
+
+  <select id="queryAuthList" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.rbac.entity.Authority">
+    SELECT <include refid="Base_Column_List" /> FROM AUTHORITY
+    <where>
+      <if test="authName != null" >
+        AUTH_NAME = #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="authId != null" >
+        AUTH_ID = #{authId,jdbcType=BIGINT},
+      </if>
+    </where>
+  </select>
+
+
+  <update id="updateAuthority" parameterType="map" >
+    update AUTHORITY
+    <set >
+      <if test="authName != null" >
+        AUTH_NAME = #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        DESC = #{desc,jdbcType=CHAR},
+      </if>
+    </set>
+    <where>
+      <if test="authId != null" >
+        AUTH_ID = #{authId,jdbcType=BIGINT},
+      </if>
+    </where>
+  </update>
+
+  <insert id="insertSelective" parameterType="edu.bnuz.fb.rbac.entity.Authority" >
+    insert into AUTHORITY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="authId != null" >
+        AUTH_ID,
+      </if>
+      <if test="authName != null" >
+        AUTH_NAME,
+      </if>
+      <if test="desc != null" >
+        DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="authId != null" >
+        #{authId,jdbcType=BIGINT},
+      </if>
+      <if test="authName != null" >
+        #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+
+
+</mapper>

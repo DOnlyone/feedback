@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.jta.UserTransactionAdapter;
 
@@ -19,6 +20,9 @@ import edu.bnuz.fb.rbac.service.LoginService;
 
 @Service
 public class LoginServiceImpl implements LoginService{
+	
+//	@Autowired
+//	private 
 	
 	@Override
 	public User getUserByName(String name) {
@@ -92,6 +96,17 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public List<RoleToAuth> getRoleTAuth(Long roleId) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 *根据用户名获取用户权限 用户名是用户登录名并非用户真实姓名
+	 *1、如果用户存在
+	 */
+	@Override
+	public User getUserAuthority(String username) {
+		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	
