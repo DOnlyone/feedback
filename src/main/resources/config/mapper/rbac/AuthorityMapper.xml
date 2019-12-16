@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<<<<<<< HEAD
 <mapper namespace="edu.bnuz.fb.rbac.AuthorityMapper" >
+=======
+<mapper namespace="edu.bnuz.fb.mapper.AuthorityMapper" >
+>>>>>>> branch 'master' of https://github.com/DOnlyone/feedback.git
   <resultMap id="BaseResultMap" type="edu.bnuz.fb.rbac.entity.Authority" >
     <result column="AUTH_ID" property="authId" jdbcType="BIGINT" />
     <result column="AUTH_NAME" property="authName" jdbcType="VARCHAR" />

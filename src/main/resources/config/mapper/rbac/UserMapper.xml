@@ -17,7 +17,11 @@
     ID, USER_ID, USER_NAME, PASSWORD, CLASS, GARDE, EMAIL, PHONE, SEX
   </sql>
 
+<<<<<<< HEAD
   <select id="findUsers" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+=======
+  <select id="findUsers" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.rbac.entity.User" >
+>>>>>>> branch 'master' of https://github.com/DOnlyone/feedback.git
     select 
     <include refid="Base_Column_List" />
     from USER
