@@ -1,5 +1,11 @@
 package edu.bnuz.fb.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
@@ -24,6 +30,7 @@ import com.alibaba.fastjson.JSON;
 import edu.bnuz.fb.common.ResultMsg;
 import edu.bnuz.fb.rbac.entity.User;
 import edu.bnuz.fb.rbac.service.LoginService;
+import edu.bnuz.fb.tools.VCodeGenerator;
 
 @Controller
 public class LoginController {
@@ -32,30 +39,31 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-	@ResponseBody
+	
+	//@ResponseBody
 	@RequestMapping("/login")
-	public ResultMsg login(User user,HttpSession session) {
+	public String login(User user,HttpSession session) {
 		ResultMsg msg = new ResultMsg();
 		String userName = user.getUserName();
 		String password = user.getPassword();
 		logger.info("userName:"+userName+"登陆系统");
 		// 添加用户认证信息
-		if(userName!=null&&!userName.equals("")&&password!=null&&!password.equals("")) {
-			User userInfo = loginService.getUserAuthority(userName);
-			if(userInfo==null) {
-				msg.setSuccess(false);
-				return msg; //-1标识用户不存在
-			}
-			String userInfoString = JSON.toJSONString(userInfo);
-			session.setAttribute("user", userInfo);
-			msg.setSuccess(true);
-			msg.setResultMsg(userInfoString);
-			return msg;
-		}else {
-			msg.setSuccess(false);
-			msg.setResultMsg("用户名或密码为空");
-			return msg;
-		}
+//		if(userName!=null&&!userName.equals("")&&password!=null&&!password.equals("")) {
+//			User userInfo = loginService.getUserAuthority(userName);
+//			if(userInfo==null) {
+//				msg.setSuccess(false);
+//				return msg; //-1标识用户不存在
+//			}
+//			String userInfoString = JSON.toJSONString(userInfo);
+//			session.setAttribute("user", userInfo);
+//			msg.setSuccess(true);
+//			msg.setResultMsg(userInfoString);
+//			return msg;
+//		}else {
+//			msg.setSuccess(false);
+//			msg.setResultMsg("用户名或密码为空");
+//			return msg;
+//		}
 //		Subject subject = SecurityUtils.getSubject();
 //		UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getUserName(), user.getPassword());
 //		try { // 进行验证，这里可以捕获异常，然后返回对应信息
@@ -69,7 +77,7 @@ public class LoginController {
 //			return "没有权限";
 //		}
 
-		//return "admin/home";
+		return "admin/home";
 	}
 
 	// 注解验角色和权限
@@ -90,7 +98,37 @@ public class LoginController {
 		return "admin/home";
 	}
 
-	// public
+	@ResponseBody
+	@RequestMapping("/getVcode")
+	public void getValidateCode(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+		
+		VCodeGenerator vcGenerator = new VCodeGenerator();
+		//生成验证码
+		String vcode = vcGenerator.generatorVCode();
+		//将验证码保存在session域中,以便判断验证码是否正确
+		request.getSession().setAttribute("vcode", vcode);
+		//生成验证码图片
+		BufferedImage vImg = vcGenerator.generatorRotateVCodeImage(vcode, true);
+		//输出图像
+		try {
+			ImageIO.write(vImg, "gif", response.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping("/welcome")
+	public String welcome() {
+		return "/admin/welcome";
+	}
+	
+	@RequestMapping
+	public String refresh() {
+		
+		return "/refresh";
+	}
+	
 }
 
 /**

@@ -1,7 +1,7 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>学生成绩管理系统 管理员后台</title>
+    <title>学生安全反馈平台 管理员后台</title>
     <link rel="shortcut icon" href="favicon.ico"/>
 	<link rel="bookmark" href="favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="/static/css/default.css" />
@@ -68,13 +68,13 @@
     </div>
     <div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
         <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
-        <iframe width=0 height=0 src="/admin/welcome.html"></iframe>
+        <iframe width=0 height=0 src="/welcome"></iframe>
 <!--         	<div th:replace="~{commons/header::topbar}"></div> -->
 <!-- 			<jsp:include page="/WEB-INF/view/admin/welcome.html" /> -->
 		</div>
     </div>
 	
-	<iframe width=0 height=0 src="refresh.html"></iframe>
+	<iframe width=0 height=0 src="/refresh"></iframe>
 	
 </body>
 </html>

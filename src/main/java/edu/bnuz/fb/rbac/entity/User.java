@@ -17,7 +17,9 @@ public class User {
 
     private String email;
 
-    private Integer phone;
+    private String phone;
+    
+    private String realName;
 
     private Byte sex;
     
@@ -87,11 +89,11 @@ public class User {
         this.email = email == null ? null : email.trim();
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -102,6 +104,15 @@ public class User {
     public void setSex(Byte sex) {
         this.sex = sex;
     }
+    
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
 
 	@Override
 	public String toString() {

@@ -1,36 +1,65 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.bnuz.fb.rbac.UserMapper" >
+<mapper namespace="edu.bnuz.fb.rbac.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="edu.bnuz.fb.rbac.entity.User" >
-    <id column="ID" property="id" jdbcType="BIGINT" />
-    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <id column="USER_ID" property="userId" jdbcType="BIGINT" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
     <result column="CLASS" property="class" jdbcType="INTEGER" />
     <result column="GARDE" property="garde" jdbcType="INTEGER" />
     <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="real_Name" property="realName" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="INTEGER" />
     <result column="SEX" property="sex" jdbcType="TINYINT" />
+    <!--关联属性的映射关系-->
+	<collection property="roleList" ofType="edu.bnuz.fb.rbac.entity.Role">
+	    <id column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
+	    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+	    <result column="DESC" property="desc" jdbcType="VARCHAR" />
+	    <collection property="authList" ofType="edu.bnuz.fb.rbac.entity.Authority">
+	        <id column="AUTH_ID" property="authId" jdbcType="BIGINT" />
+		    <result column="AUTH_NAME" property="authName" jdbcType="VARCHAR" />
+		    <result column="DESC" property="desc" jdbcType="CHAR" />
+	    </collection>
+	</collection>
   </resultMap>
+  
+  
+
+
+
 
   <sql id="Base_Column_List" >
     ID, USER_ID, USER_NAME, PASSWORD, CLASS, GARDE, EMAIL, PHONE, SEX
   </sql>
+  
+  
 
-<<<<<<< HEAD
-  <select id="findUsers" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-=======
+	<select id="queryUserDetail" resultMap="BaseResultMap" parameterType="java.util.Map" >
+		SELECT
+			t1.USER_ID,t1.USER_NAME,t1.REAL_NAME,t1.EMAIL,t1.GARDE,t1.PHONE,t1.SEX,t3.ROLE_ID,
+			t3.ROLE_NAME,t5.AUTH_ID,t5.AUTH_NAME,t5.`DESC`
+		FROM `USER` t1
+		LEFT JOIN USER_TO_ROLE t2 ON t1.USER_ID = t2.USER_ID
+		LEFT JOIN ROLE t3 ON t2.ROLE_ID = t3.ROLE_ID
+		LEFT JOIN ROLE_TO_AUTH t4 ON t3.ROLE_ID = t4.ROLE_ID
+		LEFT JOIN AUTHORITY t5 ON t4.auth_id = t5.auth_id
+		<where>
+		<if test='userName!=null &amp;&amp; userName.equals("")'>
+			and USER_NAME = #{userName}
+		</if>
+		</where>
+	</select>
+
+
+
   <select id="findUsers" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.rbac.entity.User" >
->>>>>>> branch 'master' of https://github.com/DOnlyone/feedback.git
     select 
     <include refid="Base_Column_List" />
     from USER
     <where>
-      <if test="id != null" >
-       and  ID=#{id,jdbcType=BIGINT},
-      </if>
       <if test="userId != null" >
-        and USER_ID=#{userId,jdbcType=INTEGER},
+        and USER_ID=#{userId,jdbcType=BIGINT},
       </if>
       <if test="userName != null" >
         and USER_NAME= #{userName,jdbcType=VARCHAR},
@@ -53,22 +82,22 @@
   </select>
 
   <insert id="createUser" parameterType="edu.bnuz.fb.rbac.entity.User" >
-    insert into USER (ID, USER_ID, USER_NAME,
+    insert into USER ( USER_NAME,REAL_NAME,
       PASSWORD, CLASS, GARDE,
       EMAIL, PHONE, SEX)
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
-      #{password,jdbcType=VARCHAR}, #{class,jdbcType=INTEGER}, #{garde,jdbcType=INTEGER},
+    values ( #{userName,jdbcType=VARCHAR},#{realName,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{classNum,jdbcType=INTEGER}, #{garde,jdbcType=INTEGER},
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, #{sex,jdbcType=TINYINT})
   </insert>
 
   <update id="updateUserInfo" parameterType="edu.bnuz.fb.rbac.entity.User" >
     update USER
     <set >
-      <if test="userId != null" >
-        USER_ID = #{userId,jdbcType=INTEGER},
-      </if>
       <if test="userName != null" >
         USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         PASSWORD = #{password,jdbcType=VARCHAR},
@@ -106,9 +135,6 @@
   <insert id="insertSelective" parameterType="edu.bnuz.fb.rbac.entity.User" >
     insert into USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
       <if test="userId != null" >
         USER_ID,
       </if>
@@ -135,11 +161,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
@@ -164,6 +187,8 @@
       </if>
     </trim>
   </insert>
+  
+
 
 
 

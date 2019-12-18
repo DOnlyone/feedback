@@ -1,6 +1,7 @@
 package edu.bnuz.fb;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -48,9 +49,18 @@ public static void main(String[] args) {
 	List<String> sortedList = t1.sortAddrSecListOrderByNum(cmAddrSecList);
 	System.out.println(cmAddrSecList);
 	System.out.println(sortedList);
+	System.out.println(new Date().getTime());
+	long currentTimeMillis = System.currentTimeMillis();
+	System.out.println(currentTimeMillis);
+	System.out.println(new Date().getTime());
+	
 	
 	
 }
+
+
+
+
 
 
 

@@ -13,16 +13,24 @@ import org.springframework.transaction.jta.UserTransactionAdapter;
 
 import edu.bnuz.fb.rbac.entity.Authority;
 import edu.bnuz.fb.rbac.entity.Role;
-import edu.bnuz.fb.rbac.entity.RoleToAuth;
+
 import edu.bnuz.fb.rbac.entity.User;
-import edu.bnuz.fb.rbac.entity.UserToRole;
+import edu.bnuz.fb.rbac.mapper.UserMapper;
 import edu.bnuz.fb.rbac.service.LoginService;
 
 @Service
 public class LoginServiceImpl implements LoginService{
 	
-//	@Autowired
-//	private 
+	
+
+	@Autowired
+	private UserMapper userMapper;
+	
+
+	
+	
+	
+	
 	
 	@Override
 	public User getUserByName(String name) {
@@ -45,10 +53,7 @@ public class LoginServiceImpl implements LoginService{
         role.setRoleName("admin");
         
         
-        RoleToAuth roleToAuth =new RoleToAuth();
-        roleToAuth.setRoleId(1l);
-        roleToAuth.setAuthId(1l);
-        roleToAuth.setId(1l);
+
         
         
         Set<Role> roleSet = new HashSet<>();
@@ -58,10 +63,7 @@ public class LoginServiceImpl implements LoginService{
         user.setId(1l);
         user.setUserName("test");
         user.setPassword("123456");
-        UserToRole userToRole = new UserToRole();
-        userToRole.setId(1l);
-        userToRole.setRoleId(1l);
-        userToRole.setUserId(1l);
+
         
         Map<String ,User> map = new HashMap<>();
         map.put(user.getUserName(), user);
@@ -87,17 +89,9 @@ public class LoginServiceImpl implements LoginService{
 		return null;
 	}
 
-	@Override
-	public List<UserToRole> getUserTRole(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public List<RoleToAuth> getRoleTAuth(Long roleId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 	
 	/**
 	 *根据用户名获取用户权限 用户名是用户登录名并非用户真实姓名
@@ -106,8 +100,8 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public User getUserAuthority(String username) {
 		// TODO Auto-generated method stub
-		
-		return null;
+		User user = userMapper.queryUserDetail(username);
+		return user;
 	}
 	
 
