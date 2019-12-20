@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.bnuz.fb.entity.mapper.WfDefMapper" >
+  <resultMap id="BaseResultMap" type="edu.bnuz.fb.entity.WfDef" >
+    <id column="NODE_ID" property="nodeId" jdbcType="BIGINT" />
+    <result column="NEXT_NODE" property="nextNode" jdbcType="BIGINT" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ 
+  <sql id="Base_Column_List" >
+    NODE_ID, NEXT_NODE, NODE_NAME
+  </sql>
+
+  
+  <select id="findWfDefList" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.entity.WfDef" >
+    select 
+    <include refid="Base_Column_List" />
+    from WF_DEF
+    <where>
+    <if test="nodeId != null" >
+       where NODE_ID= #{nodeId,jdbcType=BIGINT},
+      </if>
+      <if test="nextNode != null" >
+        where NEXT_NODE= #{nextNode,jdbcType=BIGINT},
+      </if>
+      <if test="nodeName != null" >
+        where NODE_NAME= #{nodeName,jdbcType=VARCHAR},
+      </if>
+    </where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from WF_DEF
+    where NODE_ID = #{nodeId,jdbcType=BIGINT}
+  </delete>
+
+  
+  <insert id="insert" parameterType="edu.bnuz.fb.entity.WfDef" >
+    insert into WF_DEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nodeId != null" >
+        NODE_ID,
+      </if>
+      <if test="nextNode != null" >
+        NEXT_NODE,
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=BIGINT},
+      </if>
+      <if test="nextNode != null" >
+        #{nextNode,jdbcType=BIGINT},
+      </if>
+      <if test="nodeName != null" >
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+ 
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bnuz.fb.entity.WfDef" >
+    update WF_DEF
+    <set >
+      <if test="nextNode != null" >
+        NEXT_NODE = #{nextNode,jdbcType=BIGINT},
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NODE_ID = #{nodeId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

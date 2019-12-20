@@ -123,7 +123,7 @@ public class LoginController {
 		return "/admin/welcome";
 	}
 	
-	@RequestMapping
+	@RequestMapping("/refresh")
 	public String refresh() {
 		
 		return "/refresh";

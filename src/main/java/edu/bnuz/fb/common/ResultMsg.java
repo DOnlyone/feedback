@@ -1,6 +1,8 @@
 package edu.bnuz.fb.common;
 
-public class ResultMsg {
+import java.io.Serializable;
+
+public class ResultMsg implements Serializable {
 	
 	private boolean success;
 	

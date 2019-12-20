@@ -82,12 +82,12 @@
   </select>
 
   <insert id="createUser" parameterType="edu.bnuz.fb.rbac.entity.User" >
-    insert into USER ( USER_NAME,REAL_NAME,
+    insert into USER ( USER_NAME,REAL_NAME,USER_NO,
       PASSWORD, CLASS, GARDE,
       EMAIL, PHONE, SEX)
-    values ( #{userName,jdbcType=VARCHAR},#{realName,jdbcType=VARCHAR},
-      #{password,jdbcType=VARCHAR}, #{classNum,jdbcType=INTEGER}, #{garde,jdbcType=INTEGER},
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=INTEGER}, #{sex,jdbcType=TINYINT})
+    values ( #{userName,jdbcType=VARCHAR},#{realName,jdbcType=VARCHAR},#{userNo,jdbcType=INTEGER},
+      #{password,jdbcType=VARCHAR}, #{classNum,jdbcType=INTEGER}, #{gardeId,jdbcType=INTEGER},
+      #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT})
   </insert>
 
   <update id="updateUserInfo" parameterType="edu.bnuz.fb.rbac.entity.User" >

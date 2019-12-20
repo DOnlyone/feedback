@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.bnuz.fb.entity.entity.mapper.WfInstanceMapper" >
+  <resultMap id="BaseResultMap" type="edu.bnuz.fb.entity.WfInstance" >
+    <id column="INSTANCE_ID" property="instanceId" jdbcType="BIGINT" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="NODE_ID" property="nodeId" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    INSTANCE_ID, CREATE_DATE, NODE_ID
+  </sql>
+  
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.entity.WfInstance" >
+    select 
+    <include refid="Base_Column_List" />
+    from WF_INSTANCE
+     <where>
+     <if test="instanceId != null" >
+        and INSTANCE_ID= #{instanceId,jdbcType=BIGINT},
+      </if>
+      <if test="nodeId != null" >
+        and NODE_ID = #{nodeId,jdbcType=BIGINT},
+      </if>
+     </where>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from WF_INSTANCE
+    where INSTANCE_ID = #{instanceId,jdbcType=BIGINT}
+  </delete>
+  
+  
+
+
+  <insert id="insert" parameterType="edu.bnuz.fb.entity.WfInstance" >
+    insert into WF_INSTANCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="instanceId != null" >
+        INSTANCE_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="instanceId != null" >
+        #{instanceId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  
+
+
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bnuz.fb.entity.WfInstance" >
+    update WF_INSTANCE
+    <set >
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID = #{nodeId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where INSTANCE_ID = #{instanceId,jdbcType=BIGINT}
+  </update>
+  
+  
+
+</mapper>

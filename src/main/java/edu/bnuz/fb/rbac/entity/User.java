@@ -3,23 +3,44 @@ package edu.bnuz.fb.rbac.entity;
 import java.util.List;
 
 public class User {
-    private Long id;
-
+	
+    private Long userId;
+    
+    /**
+     * 如果为学生为学号，教师为工号
+     */
     private Integer userNo;
-
+    
+    /**
+     * 登录名
+     */
     private String userName;
 
+    /**
+     * 密码
+     */
     private String password;
-
+    
+    /**
+     * 班级
+     */
     private Integer classNum;
-
-    private Integer garde;
-
+    
+    /**
+     * 年级
+     */
+    private Integer gardeId;
+    
     private String email;
 
-    private String phone;
+    private String mobile;
     
     private String realName;
+    
+    /**
+     * 岗位
+     */
+    private Integer title;
 
     private Byte sex;
     
@@ -32,14 +53,14 @@ public class User {
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
 	}
+	
+	public Long getUserId() {
+		return userId;
+	}
 
-	public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
     public Integer getUserNo() {
         return userNo;
@@ -73,12 +94,12 @@ public class User {
         this.classNum = classNum;
     }
 
-    public Integer getGarde() {
-        return garde;
+    public Integer getGardeId() {
+        return gardeId;
     }
 
-    public void setGarde(Integer garde) {
-        this.garde = garde;
+    public void setGardeId(Integer gardeId) {
+        this.gardeId = gardeId;
     }
 
     public String getEmail() {
@@ -89,12 +110,12 @@ public class User {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public Byte getSex() {
@@ -114,10 +135,19 @@ public class User {
 		this.realName = realName;
 	}
 
+
+	public Integer getTitle() {
+		return title;
+	}
+
+	public void setTitle(Integer title) {
+		this.title = title;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userNo=" + userNo + ", userName=" + userName + ", password=" + password
-				+ ", classNum=" + classNum + ", garde=" + garde + ", email=" + email + ", phone=" + phone + ", sex="
+		return "User [userId=" + userId + ", userNo=" + userNo + ", userName=" + userName + ", password=" + password
+				+ ", classNum=" + classNum + ", gardeId=" + gardeId + ", email=" + email + ", mobile=" + mobile + ", sex="
 				+ sex + ", roleList=" + roleList + "]";
 	}
     

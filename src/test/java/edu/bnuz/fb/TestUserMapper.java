@@ -26,10 +26,10 @@ public class TestUserMapper {
 		user.setUserName("hangs");
 		user.setRealName("张三丰");
 		user.setPassword("123456");
-		user.setPhone("18303412058");
+		user.setMobile("18303412058");
 		user.setSex((byte)1);
 		user.setClassNum(02);
-		user.setGarde(1);
+		user.setGardeId(1);
 		user.setEmail("859422@qq.com");
 		userDao.createUser(user);
 		

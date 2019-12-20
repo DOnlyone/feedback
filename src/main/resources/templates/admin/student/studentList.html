@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>学生列表</title>
@@ -11,7 +12,7 @@
 	<script type="text/javascript">
 	$(function() {	
 		//datagrid初始化 
-	    /* $('#dataList').datagrid({ 
+	     $('#dataList').datagrid({ 
 	        title:'学生列表', 
 	        iconCls:'icon-more',//图标 
 	        border: true, 
@@ -26,36 +27,38 @@
 	        sortOrder:'DESC', 
 	        remoteSort: false,
 	        columns: [
-				{field:'chk',checkbox: true,width:50},
- 		        {field:'id',title:'ID',width:50, sortable: true},    
- 		        {field:'number',title:'学号',width:200, sortable: true},    
- 		        {field:'name',title:'姓名',width:200},
- 		        {field:'sex',title:'性别',width:100},
- 		        {field:'phone',title:'电话',width:150},
- 		        {field:'qq',title:'QQ',width:150},
- 		        {field:'clazz',title:'班级',width:150, 
- 		        	formatter: function(value,row,index){
- 						if (row.clazz){
- 							return row.clazz.name;
- 						} else {
- 							return value;
- 						}
- 					}
-				},
- 		        {field:'grade',title:'年级',width:150, 
-					formatter: function(value,row,index){
- 						if (row.grade){
- 							return row.grade.name;
- 						} else {
- 							return value;
- 						}
- 					}	
- 		       	},
-	 		], 
+			        	[
+							{field:'chk',checkbox: true,width:50},
+			 		        {field:'id',title:'ID',width:50, sortable: true},    
+			 		        {field:'number',title:'学号',width:200, sortable: true},    
+			 		        {field:'name',title:'姓名',width:200},
+			 		        {field:'sex',title:'性别',width:100},
+			 		        {field:'phone',title:'电话',width:150},
+			 		        {field:'qq',title:'QQ',width:150},
+			 		        {field:'clazz',title:'班级',width:150, 
+			 		        	formatter: function(value,row,index){
+			 						if (row.clazz){
+			 							return row.clazz.name;
+			 						} else {
+			 							return value;
+			 						}
+			 					}
+							},
+			 		        {field:'grade',title:'年级',width:150, 
+								formatter: function(value,row,index){
+			 						if (row.grade){
+			 							return row.grade.name;
+			 						} else {
+			 							return value;
+			 						}
+			 					}	
+			 		       	},
+		 		       	]
+	 				], 
 	        toolbar: "#toolbar"
-	    });  */
+	    });  
 	    //设置分页控件 
-	   /*  var p = $('#dataList').datagrid('getPager'); 
+	    var p = $('#dataList').datagrid('getPager'); 
 	    $(p).pagination({ 
 	        pageSize: 10,//每页显示的记录条数，默认为10 
 	        pageList: [10,20,30,50,100],//可以设置每页记录条数的列表 
@@ -227,7 +230,7 @@
 	    		{
 					text:'添加',
 					plain: true,
-					iconCls:'icon-user_add',
+					iconCls:'icon-add',
 					handler:function(){
 						var validate = $("#addForm").form("validate");
 						if(!validate){
@@ -238,20 +241,21 @@
 							var clazzid = $("#add_clazzList").combobox("getValue");
 							$.ajax({
 								type: "post",
-								url: "StudentServlet?method=AddStudent",
+								url: "/addUser",
 								data: $("#addForm").serialize(),
 								success: function(msg){
-									if(msg == "success"){
+									console.log(msg);
+									if(msg.success){
 										$.messager.alert("消息提醒","添加成功!","info");
 										//关闭窗口
 										$("#addDialog").dialog("close");
 										//清空原表格数据
-										$("#add_number").textbox('setValue', "");
+/* 										$("#add_number").textbox('setValue', "");
 										$("#add_name").textbox('setValue', "");
 										$("#add_sex").textbox('setValue', "男");
 										$("#add_phone").textbox('setValue', "");
-										$("#add_qq").textbox('setValue', "");
-										
+										$("#add_qq").textbox('setValue', "");  */
+										$("#addForm").form('clear');
 										//重新刷新页面数据
 										$('#dataList').datagrid("options").queryParams = {clazzid: clazzid};
 							  			$('#dataList').datagrid("reload");
@@ -371,7 +375,7 @@
 				}, 100);
 				
 			}
-	    }); */
+	    }); 
 	   
 	});
 	</script>
@@ -387,7 +391,7 @@
 			<div style="float: left;" class="datagrid-btn-separator"></div>
 		<div style="float: left;"><a id="edit" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">修改</a></div>
 			<div style="float: left;" class="datagrid-btn-separator"></div>
-		<div style="float: left;"><a id="delete" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-some-delete',plain:true">删除</a></div>
+		<div style="float: left;"><a id="delete" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除</a></div>
 		
 		<div style="float: left; margin: 0 10px 0 10px">年级：<input id="gradeList" class="easyui-textbox" name="grade" /></div>
 		<div style="margin-left: 10px;">班级：<input id="clazzList" class="easyui-textbox" name="clazz" /></div>
@@ -402,34 +406,46 @@
     	<form id="addForm" method="post">
 	    	<table cellpadding="8" >
 	    		<tr>
-	    			<td>学号:</td>
+	    			<td>学号/工号:</td>
 	    			<td>
-	    				<input id="add_number"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="number" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
+	    				<input id="add_number"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="userNo" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>用户名:</td>
+	    			<td>
+	    				<input id="add_number"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="userName" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>初始密码:</td>
+	    			<td>
+	    				<input id="add_number"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="password" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>姓名:</td>
-	    			<td><input id="add_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="name" data-options="required:true, missingMessage:'请填写姓名'" /></td>
+	    			<td><input id="add_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="realName" data-options="required:true, missingMessage:'请填写姓名'" /></td>
 	    		</tr>
 	    		<tr>
 	    			<td>性别:</td>
-	    			<td><select id="add_sex" class="easyui-combobox" data-options="editable: false, panelHeight: 50, width: 60, height: 30" name="sex"><option value="男">男</option><option value="女">女</option></select></td>
+	    			<td><select id="add_sex" class="easyui-combobox" data-options="editable: false, panelHeight: 50, width: 60, height: 30" name="sex"><option value="0">男</option><option value="1">女</option></select></td>
 	    		</tr>
 	    		<tr>
 	    			<td>电话:</td>
-	    			<td><input id="add_phone" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="phone" validType="mobile" /></td>
+	    			<td><input id="add_phone" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="mobile" validType="mobile" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>QQ:</td>
-	    			<td><input id="add_qq" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="qq" validType="number" /></td>
+	    			<td>邮件:</td>
+	    			<td><input id="add_qq" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="email" validType="email" /></td>
 	    		</tr>
 	    		<tr>
 	    			<td>年级:</td>
-	    			<td><input id="add_gradeList" style="width: 200px; height: 30px;" class="easyui-textbox" name="gradeid" /></td>
+	    			<td><input id="add_gradeList" style="width: 200px; height: 30px;" class="easyui-textbox" name="gardeId" /></td>
 	    		</tr>
 	    		<tr>
 	    			<td>班级:</td>
-	    			<td><input id="add_clazzList" style="width: 200px; height: 30px;" class="easyui-textbox" name="clazzid" /></td>
+	    			<td><input id="add_clazzList" style="width: 200px; height: 30px;" class="easyui-textbox" name="classNum" /></td>
 	    		</tr>
 	    	</table>
 	    </form>

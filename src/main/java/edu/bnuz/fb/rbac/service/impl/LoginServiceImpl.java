@@ -60,7 +60,7 @@ public class LoginServiceImpl implements LoginService{
         roleSet.add(role);
         
         User user = new User();
-        user.setId(1l);
+        user.setUserId(1l);
         user.setUserName("test");
         user.setPassword("123456");
 
@@ -79,7 +79,7 @@ public class LoginServiceImpl implements LoginService{
 		 * roleSet1.add(role1); 
 		 */
         User user1 = new User();
-        user1.setId(2l);
+        user1.setUserId(2l);
         user1.setUserName("zhangsan");
         user1.setPassword("123456");
         
