@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.bnuz.fb.mapper.DicMapper" >
+
+    
+    
   <resultMap id="BaseResultMap" type="edu.bnuz.fb.entity.Dic" >
     <id column="DIC_ID" property="dicId" jdbcType="BIGINT" />
-    <result column="PARENT_ID" property="parentId" jdbcType="BIGINT" />
-    <result column="DIC_DESC" property="dicDesc" jdbcType="VARCHAR" />
-    <result column="LEVEL" property="level" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="VALUE" property="value" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="INTEGER" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DEL_FLAG" property="delFlag" jdbcType="INTEGER" />
+    <result column="P_VALUE" property="parentValue" jdbcType="BIGINT" />
   </resultMap>
 
  
   <sql id="Base_Column_List" >
-    DIC_ID, PARENT_ID, DIC_DESC, LEVEL
+    DIC_ID, NAME, TYPE, VALUE,ORDER_NUM,REMARK,DEL_FLAG,P_VALUE
   </sql>
   
   
@@ -18,55 +26,90 @@
   <select id="findDicList" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.entity.Dic" >
     select 
     <include refid="Base_Column_List" />
-    from dic
+    from SYS_DIC
     <where>
-      <if test="parentId != null" >
-       and PARENT_ID = #{parentId,jdbcType=BIGINT},
+      <if test="dicId != null" >
+        and DIC_ID = #{dicId,jdbcType=BIGINT},
       </if>
-      <if test="dicDesc != null" >
-        and DIC_DESC = #{dicDesc,jdbcType=VARCHAR},
+      <if test="name != null" >
+       and NAME= #{name,jdbcType=VARCHAR},
       </if>
-      <if test="level != null" >
-        and LEVEL = #{level,jdbcType=INTEGER},
+      <if test="type != null" >
+        and TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        and CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        and VALUE = #{value,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        and REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="parentValue != null" >
+        and P_VALUE = #{parentValue,jdbcType=INTEGER},
       </if>
     </where>
   </select>
   
   <delete id="deleteDic" parameterType="java.lang.Long" >
-    delete from dic
-    where DIC_ID = #{dicId,jdbcType=BIGINT}
+    delete from SYS_DIC
+    where DIC_ID = #{dicId,jdbcType=BIGINT} set DEL_FLAG=1
   </delete>
+
   
- 
-  
-  <insert id="insert" parameterType="edu.bnuz.fb.entity.Dic" >
-    insert into dic
+  <insert id="insertDic" parameterType="edu.bnuz.fb.entity.Dic" >
+    insert into SYS_DIC
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="dicId != null" >
         DIC_ID,
       </if>
-      <if test="parentId != null" >
-        PARENT_ID,
+      <if test="name != null" >
+        NAME,
       </if>
-      <if test="dicDesc != null" >
-        DIC_DESC,
+      <if test="type != null" >
+        TYPE,
       </if>
-      <if test="level != null" >
-        LEVEL,
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="parentValue != null" >
+        P_VALUE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="dicId != null" >
         #{dicId,jdbcType=BIGINT},
       </if>
-      <if test="parentId != null" >
-        #{parentId,jdbcType=BIGINT},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="dicDesc != null" >
-        #{dicDesc,jdbcType=VARCHAR},
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
       </if>
-      <if test="level != null" >
-        #{level,jdbcType=INTEGER},
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="parentValue != null" >
+        #{parentValue,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -75,16 +118,31 @@
 
 
   <update id="updateDic" parameterType="edu.bnuz.fb.entity.Dic" >
-    update dic
+    update SYS_DIC
     <set >
-      <if test="parentId != null" >
-        PARENT_ID = #{parentId,jdbcType=BIGINT},
+      <if test="dicId != null" >
+        and DIC_ID = #{dicId,jdbcType=BIGINT},
       </if>
-      <if test="dicDesc != null" >
-        DIC_DESC = #{dicDesc,jdbcType=VARCHAR},
+      <if test="name != null" >
+       and NAME= #{name,jdbcType=VARCHAR},
       </if>
-      <if test="level != null" >
-        LEVEL = #{level,jdbcType=INTEGER},
+      <if test="type != null" >
+        and TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        and CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        and VALUE = #{value,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        and ORDER_NUM = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        and REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="parentValue != null" >
+        and P_VALUE = #{parentValue,jdbcType=INTEGER},
       </if>
     </set>
     where DIC_ID = #{dicId,jdbcType=BIGINT}
