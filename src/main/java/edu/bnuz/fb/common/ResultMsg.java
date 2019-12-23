@@ -1,16 +1,27 @@
 package edu.bnuz.fb.common;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class ResultMsg implements Serializable {
+public class ResultMsg<T> implements Serializable {
+	
+	private int total;
 	
 	private boolean success;
 	
 	private String resultMsg;
 	
-	private Object objData;
+	private List<T> rows;
 	
 	private String resultData;
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
 
 	public boolean isSuccess() {
 		return success;
@@ -28,12 +39,12 @@ public class ResultMsg implements Serializable {
 		this.resultMsg = resultMsg;
 	}
 
-	public Object getObjData() {
-		return objData;
+	public List<T> getRows() {
+		return rows;
 	}
 
-	public void setObjData(Object objData) {
-		this.objData = objData;
+	public void setRows(List<T> rows) {
+		this.rows = rows;
 	}
 
 	public String getResultData() {
@@ -46,9 +57,14 @@ public class ResultMsg implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ResultMsg [success=" + success + ", resultMsg=" + resultMsg + ", objData=" + objData + ", resultData="
-				+ resultData + "]";
+		return "ResultMsg [total=" + total + ", success=" + success + ", resultMsg=" + resultMsg + ", rows=" + rows
+				+ ", resultData=" + resultData + "]";
 	}
+	
+	
+
+
+	
 	
 
 

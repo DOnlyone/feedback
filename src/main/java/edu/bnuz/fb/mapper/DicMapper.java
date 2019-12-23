@@ -13,7 +13,7 @@ public interface DicMapper {
 	/**
 	 * 新增一条记录
 	 */
-	public void insertDic();
+	public void insertDic(Dic dic);
 	
 	/**
 	 * 通用查询方法

@@ -1,43 +1,105 @@
 package edu.bnuz.fb.entity;
 
 public class Dic {
+		
     private Long dicId;
 
-    private Long parentId;
+    private String name;
 
-    private String dicDesc;
+    private String type;
 
-    private Integer level;
+    private String code;
+    
+    private String value;
+    
+    private int orderNum;
+    
+    private String remark;
+    
+    private int delFlag;
+    
+    private Long parentValue;
 
-    public Long getDicId() {
-        return dicId;
-    }
+	public Long getDicId() {
+		return dicId;
+	}
 
-    public void setDicId(Long dicId) {
-        this.dicId = dicId;
-    }
+	public void setDicId(Long dicId) {
+		this.dicId = dicId;
+	}
 
-    public Long getParentId() {
-        return parentId;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDicDesc() {
-        return dicDesc;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setDicDesc(String dicDesc) {
-        this.dicDesc = dicDesc == null ? null : dicDesc.trim();
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public Integer getLevel() {
-        return level;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public int getOrderNum() {
+		return orderNum;
+	}
+
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public int getDelFlag() {
+		return delFlag;
+	}
+
+	public void setDelFlag(int delFlag) {
+		this.delFlag = delFlag;
+	}
+
+	public Long getParentValue() {
+		return parentValue;
+	}
+
+	public void setParentValue(Long parentValue) {
+		this.parentValue = parentValue;
+	}
+
+	@Override
+	public String toString() {
+		return "Dic [dicId=" + dicId + ", name=" + name + ", type=" + type + ", code=" + code + ", value=" + value
+				+ ", orderNum=" + orderNum + ", remark=" + remark + ", delFlag=" + delFlag + ", parentValue="
+				+ parentValue + "]";
+	}
+
+
+
+ 
 }

@@ -21,28 +21,26 @@
 	        collapsible: false,//是否可折叠的 
 	        fit: true,//自动大小 
 	        method: "post",
-	        url:"ClazzServlet?method=ClazzDetailList&t="+new Date().getTime(),
+	        url:"/findDics?t="+new Date().getTime(),
 	        idField:'id', 
 	        singleSelect: true,//是否单选 
 	        pagination: true,//分页控件 
 	        rownumbers: true,//行号 
-	        sortName: 'id',
+	        sortName: 'dicId',
 	        sortOrder: 'DESC', 
 	        remoteSort: false,
-	        columns: [[  
-				{field:'chk',checkbox: true,width:50},
- 		        {field:'id',title:'ID',width:50, sortable: true},    
- 		        {field:'name',title:'班级名称',width:200},
- 		        {field:'grade',title:'所属年级',width:100, 
- 		        	formatter: function(value,row,index){
- 						if (row.grade){
- 							return row.grade.name;
- 						} else {
- 							return value;
- 						}
- 					}	
- 		        },
-	 		]], 
+	        columns: [
+			        	[  
+							{field:'chk',checkbox: true,width:50},
+			 		        {field:'dicId',title:'ID',width:50, sortable: true},    
+			 		        {field:'name',title:'字典名称',width:200},
+			 		        {field:'type',title:'字典类型',width:100},
+			 		       {field:'code',title:'字典码',width:200},
+			 		       {field:'value',title:'字典值',width:200},
+			 		       {field:'remark',title:'备注',width:200},
+			 		       {field:'parentValue',title:'上级',width:200},
+			 		]
+	        	], 
 	        toolbar: "#toolbar"
 	    }); 
 	    //设置分页控件 
@@ -64,13 +62,13 @@
         	if(selectRow == null){
             	$.messager.alert("消息提醒", "请选择数据进行删除!", "warning");
             } else{
-            	var clazzid = selectRow.id;
+            	var dicId = selectRow.id;
             	$.messager.confirm("消息提醒", "将删除与班级相关的所有数据(包括学生)，确认继续？", function(r){
             		if(r){
             			$.ajax({
 							type: "post",
-							url: "ClazzServlet?method=DeleteClazz",
-							data: {clazzid: clazzid},
+							url: "/updateDic",
+							data: {dicId: dicId},
 							success: function(msg){
 								if(msg == "success"){
 									$.messager.alert("消息提醒","删除成功!","info");
@@ -121,8 +119,8 @@
 	  	//设置添加学生窗口
 	    $("#addDialog").dialog({
 	    	title: "添加班级",
-	    	width: 500,
-	    	height: 400,
+	    	width: 525,
+	    	height: 350,
 	    	iconCls: "icon-add",
 	    	modal: true,
 	    	collapsible: false,
@@ -141,10 +139,10 @@
 							$.messager.alert("消息提醒","请检查你输入的数据!","warning");
 							return;
 						} else{
-							var gradeid = $("#add_gradeList").combobox("getValue");
+							//var gradeid = $("#add_gradeList").combobox("getValue");
 							$.ajax({
 								type: "post",
-								url: "ClazzServlet?method=AddClazz",
+								url: "/add_Dic",
 								data: $("#addForm").serialize(),
 								success: function(msg){
 									if(msg == "success"){
@@ -192,7 +190,7 @@
 	<div id="toolbar">
 		<div style="float: left;"><a id="add" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加</a></div>
 			<div style="float: left;" class="datagrid-btn-separator"></div>
-		<div style="float: left; margin-right: 10px;"><a id="delete" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-some-delete',plain:true">删除</a></div>
+		<div style="float: left; margin-right: 10px;"><a id="delete" href="javascript:;" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除</a></div>
 		
 		<div style="margin: 0 10px 0 10px">年级：<input id="gradeList" class="easyui-textbox" name="grade" /></div>
 	</div>
@@ -202,13 +200,33 @@
     	<form id="addForm" method="post">
 	    	<table cellpadding="8" >
 	    		<tr>
-	    			<td>班级名称:</td>
-	    			<td><input id="add_name" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="name"  validType="repeat_clazz['#add_gradeList']" data-options="required:true, missingMessage:'不能为空'" /></td>
+	    			<td>字典名称:</td>
+	    			<td><input id="add_name" style="height: 30px;" class="easyui-textbox" type="text" name="name"  data-options="required:true, missingMessage:'不能为空'" /></td>
+	    			<td>字典类型:</td>
+	    			<td><input id="add_type" style=" height: 30px;" class="easyui-textbox" type="text" name="type"  data-options="required:true, missingMessage:'不能为空'" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>所属年级:</td>
-	    			<td><select id="add_gradeList" style="width: 200px; height: 30px;" name="gradeid" ></select></td>
+	    			<td>编码:</td>
+	    			<td><input id="add_code" style=" height: 30px;" class="easyui-textbox" type="text" name="code"  data-options="required:true, missingMessage:'不能为空'" /></td>
+	    			<td>字典值:</td>
+	    			<td><input id="add_value" style=" height: 30px;" class="easyui-textbox" type="text" name="value"  data-options="required:true, missingMessage:'不能为空'" /></td>
 	    		</tr>
+	    		<tr>
+	    			<td>排序:</td>
+	    			<td><input id="add_orderNum" style=" height: 30px;" class="easyui-textbox" type="text" name="orderNum"  /></td>
+	    			<td>备注:</td>
+	    			<td><input id="add_remark" style=" height: 30px;" class="easyui-textbox" type="text" name="remark"  /></td>
+	    		</tr>
+	    		<tr>
+	    			<td>父id:</td>
+	    			<td><input id="add_parentValue" style=" height: 30px;" class="easyui-textbox" type="text" name="parentValue"  /></td>
+	    		</tr>
+	    		<!--  
+	    		<tr>
+	    			<td>字典码:</td>
+	    			<td><select id="add_gradeList" style="height: 30px;" name="code" ></select></td>
+	    		</tr>
+	    		-->
 	    	</table>
 	    </form>
 	</div>
