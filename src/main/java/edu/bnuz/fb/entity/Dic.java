@@ -18,7 +18,7 @@ public class Dic {
     
     private int delFlag;
     
-    private Long parentValue;
+    private Long parentId;
 
 	public Long getDicId() {
 		return dicId;
@@ -84,19 +84,19 @@ public class Dic {
 		this.delFlag = delFlag;
 	}
 
-	public Long getParentValue() {
-		return parentValue;
+	public Long getParentId() {
+		return parentId;
 	}
 
-	public void setParentValue(Long parentValue) {
-		this.parentValue = parentValue;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 
 	@Override
 	public String toString() {
 		return "Dic [dicId=" + dicId + ", name=" + name + ", type=" + type + ", code=" + code + ", value=" + value
-				+ ", orderNum=" + orderNum + ", remark=" + remark + ", delFlag=" + delFlag + ", parentValue="
-				+ parentValue + "]";
+				+ ", orderNum=" + orderNum + ", remark=" + remark + ", delFlag=" + delFlag + ", parentId="
+				+ parentId + "]";
 	}
 
 

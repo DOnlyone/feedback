@@ -13,7 +13,7 @@
     <result column="ORDER_NUM" property="orderNum" jdbcType="INTEGER" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
     <result column="DEL_FLAG" property="delFlag" jdbcType="INTEGER" />
-    <result column="P_VALUE" property="parentValue" jdbcType="BIGINT" />
+    <result column="P_VALUE" property="parentId" jdbcType="BIGINT" />
   </resultMap>
 
  
@@ -29,25 +29,25 @@
     from SYS_DIC
     <where>
       <if test="dicId != null" >
-        and DIC_ID = #{dicId,jdbcType=BIGINT},
+        and DIC_ID = #{dicId,jdbcType=BIGINT}
       </if>
       <if test="name != null" >
-       and NAME= #{name,jdbcType=VARCHAR},
+       and NAME= #{name,jdbcType=VARCHAR}
       </if>
       <if test="type != null" >
-        and TYPE = #{type,jdbcType=VARCHAR},
+        and TYPE = #{type,jdbcType=VARCHAR}
       </if>
       <if test="code != null" >
-        and CODE = #{code,jdbcType=VARCHAR},
+        and CODE = #{code,jdbcType=VARCHAR}
       </if>
       <if test="value != null" >
-        and VALUE = #{value,jdbcType=INTEGER},
+        and VALUE = #{value,jdbcType=INTEGER}
       </if>
       <if test="remark != null" >
-        and REMARK = #{remark,jdbcType=VARCHAR},
+        and REMARK = #{remark,jdbcType=VARCHAR}
       </if>
-      <if test="parentValue != null" >
-        and P_VALUE = #{parentValue,jdbcType=INTEGER},
+      <if test="parentId != null" >
+        and P_VALUE = #{parentId,jdbcType=INTEGER}
       </if>
     </where>
   </select>
@@ -82,7 +82,7 @@
       <if test="remark != null" >
         REMARK,
       </if>
-      <if test="parentValue != null" >
+      <if test="parentId != null" >
         P_VALUE,
       </if>
     </trim>
@@ -108,8 +108,8 @@
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="parentValue != null" >
-        #{parentValue,jdbcType=INTEGER},
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -141,12 +141,16 @@
       <if test="remark != null" >
         and REMARK = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="parentValue != null" >
-        and P_VALUE = #{parentValue,jdbcType=INTEGER},
+      <if test="parentId != null" >
+        and P_VALUE = #{parentId,jdbcType=INTEGER},
       </if>
     </set>
     where DIC_ID = #{dicId,jdbcType=BIGINT}
   </update>
+  
+  <select id="getGradeList" resultMap="BaseResultMap" >
+  	select * from SYS_DIC t1 where t1.TYPE='grade'
+  </select>
   
 
 </mapper>

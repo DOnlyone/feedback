@@ -35,7 +35,7 @@ public class DicController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("findDics")
+	@RequestMapping("/findDics")
 	public ResultMsg findDicList(Dic dic) {
 		ResultMsg result = new ResultMsg();
 		List<Dic> findDicList = sysDicService.findDicList(dic);
@@ -52,10 +52,25 @@ public class DicController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("updateDic")
+	@RequestMapping("/updateDic")
 	public ResultMsg updateDic(Dic dic) {
 		ResultMsg result = sysDicService.updateDic(dic);
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getGradeList")
+	public List<Dic> getGradeList(Dic dic) {
+		//ResultMsg msg = new ResultMsg();
+		List<Dic> findDicList = sysDicService.findDicList(dic);
+//		if(gradeList!=null&&gradeList.size()>0) {
+//			msg.setRows(gradeList);
+//			msg.setSuccess(true);
+//			return msg;
+//		}
+		//msg.setSuccess(false);
+	//	msg.setResultMsg("数据字典中没有年级信息，请先添加年级");
+		return findDicList;
 	}
 
 }

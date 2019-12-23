@@ -4,13 +4,15 @@
   <resultMap id="BaseResultMap" type="edu.bnuz.fb.rbac.entity.User" >
     <id column="USER_ID" property="userId" jdbcType="BIGINT" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_NO" property="userNo" jdbcType="INTEGER" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
     <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
-    <result column="CLASS" property="class" jdbcType="INTEGER" />
-    <result column="GARDE" property="garde" jdbcType="INTEGER" />
-    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
-    <result column="real_Name" property="realName" jdbcType="VARCHAR" />
-    <result column="PHONE" property="phone" jdbcType="INTEGER" />
     <result column="SEX" property="sex" jdbcType="TINYINT" />
+    <result column="CLASS_NUM" property="classNum" jdbcType="INTEGER" />
+    <result column="GARDE_ID" property="gardeId" jdbcType="INTEGER" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="phone" jdbcType="INTEGER" />
+    <result column="TITLE" property="title" jdbcType="TINYINT" />
     <!--关联属性的映射关系-->
 	<collection property="roleList" ofType="edu.bnuz.fb.rbac.entity.Role">
 	    <id column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
@@ -26,18 +28,15 @@
   
   
 
-
-
-
   <sql id="Base_Column_List" >
-    ID, USER_ID, USER_NAME, PASSWORD, CLASS, GARDE, EMAIL, PHONE, SEX
+    USER_ID, USER_NAME, USER_NO, REAL_NAME, PASSWORD, SEX, CLASS_NUM, GARDE_ID, EMAIL,MOBILE,TITLE
   </sql>
   
   
 
 	<select id="queryUserDetail" resultMap="BaseResultMap" parameterType="java.util.Map" >
 		SELECT
-			t1.USER_ID,t1.USER_NAME,t1.REAL_NAME,t1.EMAIL,t1.GARDE,t1.PHONE,t1.SEX,t3.ROLE_ID,
+			t1.USER_ID,t1.USER_NAME,t1.USER_NO,t1.REAL_NAME,t1.MOBILE,t1.TITLE,t1.SEX,t1.EMAIL,t3.ROLE_ID,
 			t3.ROLE_NAME,t5.AUTH_ID,t5.AUTH_NAME,t5.`DESC`
 		FROM `USER` t1
 		LEFT JOIN USER_TO_ROLE t2 ON t1.USER_ID = t2.USER_ID
@@ -59,36 +58,48 @@
     from USER
     <where>
       <if test="userId != null" >
-        and USER_ID=#{userId,jdbcType=BIGINT},
+        and USER_ID=#{userId,jdbcType=BIGINT}
       </if>
       <if test="userName != null" >
-        and USER_NAME= #{userName,jdbcType=VARCHAR},
+        and USER_NAME= #{userName,jdbcType=VARCHAR}
       </if>
-
-      <if test="class != null" >
-        and CLASS = #{class,jdbcType=INTEGER},
+      <if test="userNo!=null">
+      	and USER_NO = #{userNo,jdbcType=INTEGER}
       </if>
-      <if test="garde != null" >
-        and GARDE = #{garde,jdbcType=INTEGER},
+      <if test="realName!=null">
+      	and REAL_NAME =#{realName,jdbcType=VARCHAR}
+      </if>
+		
+      <if test="classNum != null" >
+        and CLASS_NUM = #{classNum,jdbcType=INTEGER}
+      </if>
+      <if test="gardeId != null" >
+        and GARDE_ID = #{gardeId,jdbcType=INTEGER}
       </if>
       <if test="email != null" >
-        and EMAIL = #{email,jdbcType=VARCHAR},
+        and EMAIL = #{email,jdbcType=VARCHAR}
       </if>
       <if test="phone != null" >
-        and PHONE = #{phone,jdbcType=INTEGER},
+        and MOBILE = #{phone,jdbcType=INTEGER}
       </if>
+      <if test="title!=null">
+      	and TITLE = #{title,jdbcType=INTEGER}
+      </if>
+      
     </where>
 
   </select>
 
-  <insert id="createUser" parameterType="edu.bnuz.fb.rbac.entity.User" >
+  <insert id="createUser11" parameterType="edu.bnuz.fb.rbac.entity.User" >
     insert into USER ( USER_NAME,REAL_NAME,USER_NO,
-      PASSWORD, CLASS, GARDE,
+      PASSWORD, CLASS, gardeId,
       EMAIL, PHONE, SEX)
     values ( #{userName,jdbcType=VARCHAR},#{realName,jdbcType=VARCHAR},#{userNo,jdbcType=INTEGER},
       #{password,jdbcType=VARCHAR}, #{classNum,jdbcType=INTEGER}, #{gardeId,jdbcType=INTEGER},
       #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT})
   </insert>
+  
+  
 
   <update id="updateUserInfo" parameterType="edu.bnuz.fb.rbac.entity.User" >
     update USER
@@ -96,26 +107,32 @@
       <if test="userName != null" >
         USER_NAME = #{userName,jdbcType=VARCHAR},
       </if>
+       <if test="userNo!=null">
+      	USER_NO = #{userNo,jdbcType=INTEGER},
+      </if>
       <if test="realName != null" >
         REAL_NAME = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="class != null" >
-        CLASS = #{class,jdbcType=INTEGER},
+      <if test="classNum != null" >
+        CLASS_NUM = #{classNum,jdbcType=INTEGER},
       </if>
-      <if test="garde != null" >
-        GARDE = #{garde,jdbcType=INTEGER},
+      <if test="gardeId != null" >
+        GARDE_ID = #{gardeId,jdbcType=INTEGER},
       </if>
       <if test="email != null" >
         EMAIL = #{email,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
-        PHONE = #{phone,jdbcType=INTEGER},
+        MOBILE = #{phone,jdbcType=INTEGER},
       </if>
       <if test="sex != null" >
         SEX = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="title!=null">
+      	and TITLE = #{title,jdbcType=INTEGER},
       </if>
     </set>
     where ID = #{id,jdbcType=BIGINT}
@@ -129,10 +146,10 @@
   </delete>
 
 
+ 
 
 
-
-  <insert id="insertSelective" parameterType="edu.bnuz.fb.rbac.entity.User" >
+  <insert id="createUser" parameterType="edu.bnuz.fb.rbac.entity.User" >
     insert into USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -141,13 +158,22 @@
       <if test="userName != null" >
         USER_NAME,
       </if>
+      <if test="userNo != null" >
+      	USER_NO,
+      </if>
+      <if test="realName!=null">
+      	REAL_NAME
+      </if>
       <if test="password != null" >
         PASSWORD,
       </if>
-      <if test="class != null" >
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="classNum != null" >
         CLASS,
       </if>
-      <if test="garde != null" >
+      <if test="gardeId != null" >
         GARDE,
       </if>
       <if test="email != null" >
@@ -156,9 +182,7 @@
       <if test="phone != null" >
         PHONE,
       </if>
-      <if test="sex != null" >
-        SEX,
-      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -167,14 +191,20 @@
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
+            <if test="userNo !=null">
+      	#{userNo,jdbcType=INTEGER},
+       </if>
+      <if test="realName!=null">
+      	#{realName, jdbcType=VARCHAR},
+      </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="class != null" >
-        #{class,jdbcType=INTEGER},
+      <if test="classNum != null" >
+        #{classNum,jdbcType=INTEGER},
       </if>
-      <if test="garde != null" >
-        #{garde,jdbcType=INTEGER},
+      <if test="gardeId != null" >
+        #{gardeId,jdbcType=INTEGER},
       </if>
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
@@ -185,6 +215,7 @@
       <if test="sex != null" >
         #{sex,jdbcType=TINYINT},
       </if>
+
     </trim>
   </insert>
   

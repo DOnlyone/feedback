@@ -1,6 +1,7 @@
 package edu.bnuz.fb;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,14 @@ public class TestUserMapper {
 		
 	}
 	
+	@Test
+	public void testQueryUser() {
+		User user = new User();
+		user.setEmail("859422@qq.com");
+		user.setUserName("hangs");
+		List<User> findUsers = userDao.findUsers(user);
+		System.out.println(findUsers.size());
+	}
 
 
 }

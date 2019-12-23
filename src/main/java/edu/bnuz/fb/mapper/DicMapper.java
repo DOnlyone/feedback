@@ -33,6 +33,12 @@ public interface DicMapper {
 	 */
 	public void deleteDic(Long dic_id);
 	
+	/**
+	 * 获取所有年级
+	 * @return
+	 */
+	public List<Dic> getGradeList();
+	
 	
 
 }

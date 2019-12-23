@@ -54,4 +54,11 @@ public class SysDicServiceImpl implements SysDicService {
 		return result;
 	}
 
+	@Override
+	public List<Dic> getGradeList() {
+		List<Dic> gradeList = dicDao.getGradeList();
+		
+		return gradeList;
+	}
+
 }

@@ -63,20 +63,29 @@ CREATE TABLE `ROLE_TO_AUTH` (
 -- ----------------------------
 -- Table structure for USER
 -- ----------------------------
-DROP TABLE IF EXISTS `USER`;
-CREATE TABLE `USER` (
-  `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `USER_NAME` varchar(11) DEFAULT NULL,
-  `REAL_NAME` varchar(50) DEFAULT NULL,
-  `PASSWORD` varchar(20) DEFAULT NULL,
-  `CLASS` int(11) DEFAULT NULL,
-  `GARDE` int(11) DEFAULT NULL,
-  `EMAIL` varchar(20) DEFAULT NULL,
-  `PHONE` varchar(15) DEFAULT NULL,
-  `SEX` tinyint(4) DEFAULT NULL,
-  `USER_NO` int(10) DEFAULT NULL COMMENT '如果为学生为学号，教师为工号',
-  PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+drop table if exists USER;
+
+/*==============================================================*/
+/* Table: USER                                                  */
+/*==============================================================*/
+create table USER
+(
+   USER_ID              int not null auto_increment comment '用户',
+   USER_NAME            varchar(50) not null comment '登录名',
+   USER_NO              bigint not null comment '学号/工号',
+   REAL_NAME            varchar(0) not null comment '真实姓名',
+   PASSWORD             varchar(20) comment '密码',
+   SEX                  int comment '性别',
+   CLASS_NUM            integer comment '班级ID',
+   GARDE_ID             integer comment '年级ID',
+   EMAIL                varchar(20),
+   MOBILE               integer,
+   TITLE                integer comment '职位',
+   primary key (USER_ID)
+);
+
+
+
 
 -- ----------------------------
 -- Table structure for USER_TO_ROLE

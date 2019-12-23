@@ -13,6 +13,8 @@ public interface SysDicService {
 	
 	public ResultMsg updateDic(Dic dic);
 	
+	public List<Dic> getGradeList();
+	
 	
 
 }
