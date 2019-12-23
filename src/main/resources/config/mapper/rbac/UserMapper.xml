@@ -139,14 +139,10 @@
   </update>
 
 
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from USER
     where ID = #{id,jdbcType=BIGINT}
   </delete>
-
-
- 
 
 
   <insert id="createUser" parameterType="edu.bnuz.fb.rbac.entity.User" >
@@ -171,18 +167,20 @@
         SEX,
       </if>
       <if test="classNum != null" >
-        CLASS,
+        CLASS_NUM,
       </if>
       <if test="gardeId != null" >
-        GARDE,
+        GARDE_ID,
       </if>
       <if test="email != null" >
         EMAIL,
       </if>
-      <if test="phone != null" >
-        PHONE,
+      <if test="mobile != null" >
+        MOBILE,
       </if>
-      
+      <if test="title !=null">
+      	TITLE
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -191,14 +189,17 @@
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
-            <if test="userNo !=null">
+      <if test="userNo !=null">
       	#{userNo,jdbcType=INTEGER},
-       </if>
+      </if>
       <if test="realName!=null">
       	#{realName, jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+       <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
       </if>
       <if test="classNum != null" >
         #{classNum,jdbcType=INTEGER},
@@ -209,11 +210,11 @@
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=INTEGER},
+      <if test="mobile != null" >
+        #{mobile,jdbcType=INTEGER},
       </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=TINYINT},
+      <if test="title != null" >
+        #{title,jdbcType=INTEGER},
       </if>
 
     </trim>
