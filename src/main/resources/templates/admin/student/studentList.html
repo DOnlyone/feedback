@@ -22,7 +22,7 @@
 	        collapsible:false,//是否可折叠的 
 	        fitColumns: true,//自动大小 
 	        method: "post",
-	        idField:'id', 
+	        idField:'userId', 
 	        singleSelect:false,//是否单选 
 	        pagination:true,//分页控件 
 	        rownumbers:true,//行号 
@@ -66,6 +66,18 @@
             	$.messager.alert("消息提醒", "请选择一条数据进行操作!", "warning");
             } else{
 				//设置值
+				console.log(selectRows);
+				var selectRow = $("#dataList").datagrid("getSelected");
+				$("#userNo").textbox('setValue',selectRow.userNo);
+				$("#userName").textbox('setValue',selectRow.userName);
+				$("#password").textbox('setValue',selectRow.password);
+				$("#userId").textbox('setValue',selectRow.userId);
+				$("#email").textbox('setValue',selectRow.email);
+				$("#mobile").textbox('setValue',selectRow.mobile);
+				$("#realName").textbox('setValue',selectRow.realName);
+				$("#title").textbox('setValue',selectRow.title);
+				$("#add_clazzList").combobox('setValue',selectRow.classNum);
+				$("#add_gradeList").combobox('setValue',selectRow.gardeId);
 		    	$("#addDialog").dialog("open");
             }
 	    });
@@ -203,7 +215,7 @@
 							$.messager.alert("消息提醒","请检查你输入的数据!","warning");
 							return;
 						} else{
-							var userId = $("#userId").combobox("userId");
+							var userId = $("#userId").textbox("getValue");
 							var gradeid = $("#add_gradeList").combobox("getValue");
 							var clazzid = $("#add_clazzList").combobox("getValue");
 							var url = "/addUser";
@@ -253,7 +265,7 @@
 				},
 			],
 			onBeforeClose:function(){
-				$("#userId").val()
+				$("#userId").textbox('clear');
 			}
 	    });
 	  	
@@ -303,12 +315,12 @@
 	<!-- 添加学生窗口 -->
 	<div id="addDialog" style="padding: 10px">  
     	<form id="addForm" method="post">
-    		<input type="hidden" id="userId" name="userId" >
+    		<input type="hidden" id="userId" name="userId" class="easyui-textbox" >
 	    	<table cellpadding="8" >
 	    		<tr>
 	    			<td>学号/工号:</td>
 	    			<td>
-	    				<input id="add_userNo"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="userNo" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
+	    				<input id="userNo"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="userNo" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
 	    			</td>
 	    			<td colspan="2" rowspan="5">
 	    				<div style="float: right; width: 200px; border: 1px solid #EBF3FF" id="photo">
@@ -320,28 +332,28 @@
 	    		<tr>
 	    			<td>用户名:</td>
 	    			<td colspan="3">
-	    				<input id="add_userName"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="userName" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
+	    				<input id="userName"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="userName" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>初始密码:</td>
 	    			<td>
-	    				<input id="add_password"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="password" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
+	    				<input id="password"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="password" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>姓名:</td>
-	    			<td><input id="add_realName" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="realName" data-options="required:true, missingMessage:'请填写姓名'" /></td>
+	    			<td><input id="realName" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="realName" data-options="required:true, missingMessage:'请填写姓名'" /></td>
 	    		</tr>
 	    		<tr>
 	    			<td>性别:</td>
-	    			<td><select id="add_sex" style="width: 200px;" class="easyui-combobox" data-options="editable: false, panelHeight:'auto' " name="sex"><option value="0">男</option><option value="1">女</option></select></td>
+	    			<td><select id="sex" style="width: 200px;" class="easyui-combobox" data-options="editable: false, panelHeight:'auto' " name="sex"><option value="0">男</option><option value="1">女</option></select></td>
 	    		</tr>
 	    		<tr>
 	    			<td>电话:</td>
-	    			<td><input id="add_mobile" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="mobile" validType="mobile" /></td>
+	    			<td><input id="mobile" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="mobile" validType="mobile" /></td>
 	    			<td>邮件:</td>
-	    			<td><input id="add_qq" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="email" validType="email" /></td>
+	    			<td><input id="email" style="width: 200px; height: 30px;" class="easyui-textbox" type="text" name="email" validType="email" /></td>
 	    		</tr>
 <!-- 	    		<tr>
 	    			<td>邮件:</td>
@@ -355,7 +367,7 @@
 	    		</tr>
 	    		<tr>
 	    			<td>职位:</td>
-	    			<td><input id="add_title" style="width: 200px; height: 30px;" class="easyui-textbox" name="title" /></td>
+	    			<td><input id="title" style="width: 200px; height: 30px;" class="easyui-textbox" name="title" /></td>
 	    		</tr>
 	    	</table>
 	    </form>

@@ -11,5 +11,7 @@ public interface UserService {
 	public ResultMsg createUser(User user) ;
 	
 	public ResultMsg findUserList(User user);
+	
+	public ResultMsg updateUser(User user);
 
 }

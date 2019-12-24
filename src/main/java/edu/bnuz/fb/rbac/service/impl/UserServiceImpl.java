@@ -46,4 +46,19 @@ public class UserServiceImpl implements UserService {
 		return msg;
 	}
 
+	@Override
+	public ResultMsg updateUser(User user) {
+		ResultMsg msg = new ResultMsg();
+		try {
+			userDao.updateUserInfo(user);
+			msg.setSuccess(true);
+			msg.setResultMsg("用户信息已更新");
+		}catch(Exception e) {
+			msg.setSuccess(false);
+			msg.setResultMsg("更新失败");
+		}
+		
+		return msg;
+	}
+
 }

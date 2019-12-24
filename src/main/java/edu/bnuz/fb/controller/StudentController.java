@@ -62,6 +62,13 @@ public class StudentController {
 		return null;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/updateUser")
+	public ResultMsg updateUser(User user) {
+		ResultMsg updateMsg = userService.updateUser(user);
+		return updateMsg;
+	}
+	
 	
 
 }
