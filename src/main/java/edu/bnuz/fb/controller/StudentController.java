@@ -45,5 +45,23 @@ public class StudentController {
 		return msg;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/findUsers")
+	public ResultMsg getUserList(User user){
+		System.out.println(user);
+		ResultMsg resultMsg = userService.findUserList(user);
+		return resultMsg;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteUser")
+	public ResultMsg deleteUser(Long userId) {
+		ResultMsg msg = new ResultMsg();
+		System.out.println(userId);
+		
+		return null;
+	}
+	
+	
 
 }

@@ -11,7 +11,7 @@
     <result column="CLASS_NUM" property="classNum" jdbcType="INTEGER" />
     <result column="GARDE_ID" property="gardeId" jdbcType="INTEGER" />
     <result column="EMAIL" property="email" jdbcType="VARCHAR" />
-    <result column="MOBILE" property="phone" jdbcType="INTEGER" />
+    <result column="MOBILE" property="mobile" jdbcType="INTEGER" />
     <result column="TITLE" property="title" jdbcType="TINYINT" />
     <!--关联属性的映射关系-->
 	<collection property="roleList" ofType="edu.bnuz.fb.rbac.entity.Role">
@@ -79,8 +79,8 @@
       <if test="email != null" >
         and EMAIL = #{email,jdbcType=VARCHAR}
       </if>
-      <if test="phone != null" >
-        and MOBILE = #{phone,jdbcType=INTEGER}
+      <if test="mobile != null" >
+        and MOBILE = #{mobile,jdbcType=INTEGER}
       </if>
       <if test="title!=null">
       	and TITLE = #{title,jdbcType=INTEGER}
@@ -125,8 +125,8 @@
       <if test="email != null" >
         EMAIL = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
-        MOBILE = #{phone,jdbcType=INTEGER},
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=INTEGER},
       </if>
       <if test="sex != null" >
         SEX = #{sex,jdbcType=TINYINT},
@@ -158,7 +158,7 @@
       	USER_NO,
       </if>
       <if test="realName!=null">
-      	REAL_NAME
+      	REAL_NAME,
       </if>
       <if test="password != null" >
         PASSWORD,
@@ -179,7 +179,7 @@
         MOBILE,
       </if>
       <if test="title !=null">
-      	TITLE
+      	TITLE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >

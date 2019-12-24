@@ -9,5 +9,7 @@ public interface UserService {
 
 	
 	public ResultMsg createUser(User user) ;
+	
+	public ResultMsg findUserList(User user);
 
 }

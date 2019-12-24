@@ -1,5 +1,7 @@
 package edu.bnuz.fb.rbac.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,20 @@ public class UserServiceImpl implements UserService {
 			msg.setResultMsg("记录保存失败");
 		}
 		
+		return msg;
+	}
+
+	@Override
+	public ResultMsg findUserList(User user) {
+		ResultMsg msg = new ResultMsg();
+		List<User> findUsers = userDao.findUsers(user);
+		if(findUsers!=null&&findUsers.size()>0) {
+			msg.setSuccess(true);
+			msg.setRows(findUsers);
+			return msg;
+		}
+		msg.setSuccess(false);
+		msg.setResultMsg("没有找到相关记录");
 		return msg;
 	}
 

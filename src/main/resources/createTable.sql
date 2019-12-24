@@ -73,16 +73,19 @@ create table USER
    USER_ID              int not null auto_increment comment '用户',
    USER_NAME            varchar(50) not null comment '登录名',
    USER_NO              bigint not null comment '学号/工号',
-   REAL_NAME            varchar(0) not null comment '真实姓名',
+   REAL_NAME            varchar(50) not null comment '真实姓名',
    PASSWORD             varchar(20) comment '密码',
    SEX                  int comment '性别',
    CLASS_NUM            integer comment '班级ID',
    GARDE_ID             integer comment '年级ID',
    EMAIL                varchar(20),
-   MOBILE               integer,
+   MOBILE               bigint,
    TITLE                integer comment '职位',
    primary key (USER_ID)
 );
+
+
+
 
 
 
