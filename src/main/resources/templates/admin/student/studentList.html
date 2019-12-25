@@ -88,28 +88,26 @@
         	if(selectLength == 0){
             	$.messager.alert("消息提醒", "请选择数据进行删除!", "warning");
             } else{
-            	var numbers = [];
+            	var userId = [];
             	$(selectRows).each(function(i, row){
-            		numbers[i] = row.number;
+            		userId[i] = row.userId;
             	});
-            	var ids = [];
-            	$(selectRows).each(function(i, row){
-            		ids[i] = row.id;
-            	});
+            	
             	$.messager.confirm("消息提醒", "将删除与学生相关的所有数据(包括成绩)，确认继续？", function(r){
             		if(r){
             			$.ajax({
 							type: "post",
 							url: "/deleteUser",
-							data: {numbers: numbers, ids: ids},
+							data: {userId: userId},
+							//contentType:"application/json;charset=utf-8",
 							success: function(msg){
-								if(msg == "success"){
-									$.messager.alert("消息提醒","删除成功!","info");
+								if(msg.success){
+									$.messager.alert("消息提醒",msg.resultMsg,"info");
 									//刷新表格
 									$("#dataList").datagrid("reload");
 									$("#dataList").datagrid("uncheckAll");
-								} else{
-									$.messager.alert("消息提醒","删除失败!","warning");
+								}else{
+									$.messager.alert("消息提醒",msg.resultMsg,"warning");
 									return;
 								}
 							}
@@ -156,7 +154,7 @@
 	  	});
 	  	
 	  	//下拉框通用属性
-	  	$("#add_gradeList, #edit_gradeList, #add_clazzList, #edit_clazzList").combobox({
+	  	$("#add_gradeList, #add_clazzList").combobox({
 	  		panelHeight:'auto',
 	  		valueField: "dicId",
 	  		textField: "value",
@@ -227,7 +225,7 @@
 								success: function(msg){
 									console.log(msg);
 									if(msg.success){
-										$.messager.alert("消息提醒","添加成功!","info");
+										$.messager.alert("消息提醒",msg.resultMsg,"info");
 										//关闭窗口
 										$("#addDialog").dialog("close");
 										//清空原表格数据

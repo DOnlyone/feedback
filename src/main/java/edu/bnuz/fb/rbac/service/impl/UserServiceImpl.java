@@ -54,8 +54,25 @@ public class UserServiceImpl implements UserService {
 			msg.setSuccess(true);
 			msg.setResultMsg("用户信息已更新");
 		}catch(Exception e) {
+			e.printStackTrace();
 			msg.setSuccess(false);
 			msg.setResultMsg("更新失败");
+		}
+		
+		return msg;
+	}
+
+	@Override
+	public ResultMsg deleteUsers(List userId) {
+		ResultMsg msg = new ResultMsg();
+		try {
+			userDao.deleteUsers(userId);
+			msg.setSuccess(true);
+			msg.setResultMsg("用户已删除");
+		}catch(Exception e) {
+			e.printStackTrace();
+			msg.setSuccess(false);
+			msg.setResultMsg("记录保存失败");
 		}
 		
 		return msg;

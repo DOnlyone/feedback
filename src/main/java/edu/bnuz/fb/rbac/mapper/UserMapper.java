@@ -18,6 +18,8 @@ public interface UserMapper {
     
     public User queryUserDetail(String username);
     
+    public void deleteUsers(List userIds);
+    
     
 
 

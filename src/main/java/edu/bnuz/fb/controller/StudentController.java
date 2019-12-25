@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -55,17 +56,17 @@ public class StudentController {
 	
 	@ResponseBody
 	@RequestMapping("/deleteUser")
-	public ResultMsg deleteUser(Long userId) {
+	public ResultMsg deleteUser(@RequestBody List<Long> userId) {
 		ResultMsg msg = new ResultMsg();
 		System.out.println(userId);
-		
-		return null;
+		ResultMsg delMsg = userService.deleteUsers(userId);
+		return delMsg;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/updateUser")
 	public ResultMsg updateUser(User user) {
-		ResultMsg updateMsg = userService.updateUser(user);
+		ResultMsg<?> updateMsg = userService.updateUser(user);
 		return updateMsg;
 	}
 	
