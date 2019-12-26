@@ -98,8 +98,8 @@
             			$.ajax({
 							type: "post",
 							url: "/deleteUser",
-							data: {userId: userId},
-							//contentType:"application/json;charset=utf-8",
+							data: JSON.stringify(userId),
+							contentType:"application/json;charset=utf-8",
 							success: function(msg){
 								if(msg.success){
 									$.messager.alert("消息提醒",msg.resultMsg,"info");
@@ -336,7 +336,7 @@
 	    		<tr>
 	    			<td>初始密码:</td>
 	    			<td>
-	    				<input id="password"  class="easyui-textbox" style="width: 200px; height: 30px;" type="text" name="password" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
+	    				<input id="password"  class="easyui-textbox" style="width: 200px; height: 30px;" type="password" name="password" data-options="required:true, validType:'repeat', missingMessage:'请输入学号'" />
 	    			</td>
 	    		</tr>
 	    		<tr>

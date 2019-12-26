@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import edu.bnuz.fb.common.ResultMsg;
 import edu.bnuz.fb.rbac.entity.User;
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResultMsg createUser(User user) {
 		ResultMsg msg = new ResultMsg();
+		//MessageDigest.
+		String md5Password = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+		user.setPassword(md5Password);
 		try {
 			userDao.createUser(user);
 			msg.setSuccess(true);
@@ -72,7 +76,7 @@ public class UserServiceImpl implements UserService {
 		}catch(Exception e) {
 			e.printStackTrace();
 			msg.setSuccess(false);
-			msg.setResultMsg("记录保存失败");
+			msg.setResultMsg("记录删除失败");
 		}
 		
 		return msg;

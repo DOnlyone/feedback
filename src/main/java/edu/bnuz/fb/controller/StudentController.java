@@ -57,7 +57,6 @@ public class StudentController {
 	@ResponseBody
 	@RequestMapping("/deleteUser")
 	public ResultMsg deleteUser(@RequestBody List<Long> userId) {
-		ResultMsg msg = new ResultMsg();
 		System.out.println(userId);
 		ResultMsg delMsg = userService.deleteUsers(userId);
 		return delMsg;

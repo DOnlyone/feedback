@@ -55,8 +55,7 @@
   <select id="findUsers" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.rbac.entity.User" >
     select 
     <include refid="Base_Column_List" />
-    from USER
-    <where>
+    from USER where (IS_DEL!=1 or IS_DEL IS NULL)
       <if test="userId != null" >
         and USER_ID=#{userId,jdbcType=BIGINT}
       </if>
@@ -85,9 +84,6 @@
       <if test="title!=null">
       	and TITLE = #{title,jdbcType=INTEGER}
       </if>
-      
-    </where>
-
   </select>
 
   <insert id="createUser11" parameterType="edu.bnuz.fb.rbac.entity.User" >
@@ -139,13 +135,12 @@
   </update>
 
 
-  <delete id="deleteUser" parameterType="java.util.List" >
-    delete from USER  where USER_ID in
-       <foreach item="item" collection="list" separator="," open="(" close=")" index="">
-6        #{item, jdbcType=BIGINT}
-7      </foreach>
-  </delete>
-
+	<update id="deleteUsers" parameterType="java.util.List" >
+		update USER SET IS_DEL = 1 WHERE USER_ID in
+		<foreach item="item" collection="list" separator="," open="(" close=")" index="">
+	        #{item, jdbcType=BIGINT}
+	    </foreach>
+	</update>
 
   <insert id="createUser" parameterType="edu.bnuz.fb.rbac.entity.User" >
     insert into USER
