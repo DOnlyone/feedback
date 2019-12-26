@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import edu.bnuz.fb.common.ResultMsg;
 import edu.bnuz.fb.rbac.entity.User;
 import edu.bnuz.fb.rbac.mapper.UserMapper;
@@ -14,6 +18,7 @@ import edu.bnuz.fb.rbac.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 	
+	//private static final List<User> com.github.pagehelper.Page<User> = null;
 	@Autowired
 	private UserMapper userDao;
 
@@ -39,10 +44,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResultMsg findUserList(User user) {
 		ResultMsg msg = new ResultMsg();
+		PageHelper.startPage(1, 2);
 		List<User> findUsers = userDao.findUsers(user);
 		if(findUsers!=null&&findUsers.size()>0) {
 			msg.setSuccess(true);
 			msg.setRows(findUsers);
+			//Page<User> page = (Page<User>) findUsers;
+			PageInfo<User> page = new PageInfo(findUsers);
+			System.out.println(page.getTotal());
 			return msg;
 		}
 		msg.setSuccess(false);
