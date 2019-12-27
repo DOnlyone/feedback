@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 			msg.setRows(findUsers);
 			//Page<User> page = (Page<User>) findUsers;
 			PageInfo<User> page = new PageInfo(findUsers);
-			System.out.println(page.getTotal());
+			msg.setTotal(page.getTotal());
 			return msg;
 		}
 		msg.setSuccess(false);

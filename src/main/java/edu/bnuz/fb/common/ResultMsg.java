@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ResultMsg<T> implements Serializable {
 	
-	private int total;
+	private Long total;
 	
 	private boolean success;
 	
@@ -15,11 +15,11 @@ public class ResultMsg<T> implements Serializable {
 	
 	private String resultData;
 
-	public int getTotal() {
+	public Long getTotal() {
 		return total;
 	}
 
-	public void setTotal(int total) {
+	public void setTotal(Long total) {
 		this.total = total;
 	}
 

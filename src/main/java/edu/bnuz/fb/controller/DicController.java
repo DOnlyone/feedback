@@ -44,7 +44,7 @@ public class DicController {
 			result.setResultMsg("没有找到相关记录");
 			return result;
 		}
-		result.setTotal(findDicList.size());
+		result.setTotal((long)findDicList.size());
 		result.setSuccess(true);
 		result.setRows(findDicList);
 		
