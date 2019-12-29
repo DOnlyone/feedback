@@ -2,6 +2,7 @@ package edu.bnuz.fb.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +32,7 @@ import com.alibaba.fastjson.JSON;
 import edu.bnuz.fb.common.ResultMsg;
 import edu.bnuz.fb.rbac.entity.User;
 import edu.bnuz.fb.rbac.service.LoginService;
+import edu.bnuz.fb.rbac.service.UserService;
 import edu.bnuz.fb.tools.VCodeGenerator;
 
 @Controller
@@ -37,23 +40,36 @@ public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
-	private LoginService loginService;
+	private UserService userService;
 
 	
 	//@ResponseBody
 	@RequestMapping("/login")
-	public String login(User user,HttpSession session) {
+	public String login(User user,HttpSession session,Model model,String vcode) {
 		ResultMsg msg = new ResultMsg();
 		String userName = user.getUserName();
 		String password = user.getPassword();
+		String codeValue = (String) session.getAttribute("vcode");
+		if(codeValue!=null&&!codeValue.equals(vcode)) {
+			model.addAttribute("errorMsg", "输入的验证码有误，请重新输入");
+			return "index";
+		}
 		logger.info("userName:"+userName+"登陆系统");
 		// 添加用户认证信息
-//		if(userName!=null&&!userName.equals("")&&password!=null&&!password.equals("")) {
-//			User userInfo = loginService.getUserAuthority(userName);
-//			if(userInfo==null) {
-//				msg.setSuccess(false);
-//				return msg; //-1标识用户不存在
-//			}
+		if(userName!=null&&!userName.equals("")&&password!=null&&!password.equals("")) {
+			String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
+			user.setPassword(md5Password);
+			ResultMsg userMsg = userService.findUserList(user);
+			if(userMsg.isSuccess()) {
+				List rows = userMsg.getRows();
+				user = (User) rows.get(0);
+				session.setAttribute("session_user", user);
+				return "redirect:/home";
+			}else {
+				model.addAttribute("errorMsg", "用户名和密码错误，请重新输入");
+			}
+		}
+
 //			String userInfoString = JSON.toJSONString(userInfo);
 //			session.setAttribute("user", userInfo);
 //			msg.setSuccess(true);
@@ -77,7 +93,7 @@ public class LoginController {
 //			return "没有权限";
 //		}
 
-		return "admin/home";
+		return "index";
 	}
 
 	// 注解验角色和权限
@@ -128,6 +144,16 @@ public class LoginController {
 		
 		return "/refresh";
 	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		System.out.println("----------------------");
+		HttpSession session = request.getSession();
+		//session.
+	
+		return "/index";
+	}
+	
 	
 }
 

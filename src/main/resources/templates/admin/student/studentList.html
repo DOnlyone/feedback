@@ -34,14 +34,39 @@
 			        	[
 							{field:'chk',checkbox: true,width:50},
 			 		        {field:'userId',title:'ID',width:50, sortable: true},    
-			 		        {field:'userNo',title:'学号',width:100, sortable: true},    
+			 		        {field:'userNo',title:'学号/工号',width:100, sortable: true},    
 			 		        {field:'userName',title:'登录名',width:100},
 			 		        {field:'realName',title:'真实姓名',width:100},
-			 		        {field:'sex',title:'性别',width:100},
+			 		        {field:'sex',title:'性别',width:100,
+			 		        	formatter:function(value,row,index){
+			 		        		if(value=="1"){
+			 		        			return "男";
+			 		        		}else{
+			 		        			return "女";
+			 		        		}
+			 		        	}
+			 		        },
 			 		        {field:'mobile',title:'电话',width:150},
 			 		        {field:'email',title:'email',width:150},
-			 		        {field:'classNum',title:'班级',width:50},
-			 		        {field:'gardeId',title:'年级',width:50}
+			 		        {field:'classNum',title:'班级',width:50,
+			 		        	formatter:function(value,row,index){
+			 		        		return row.classStr;
+			 		        	}
+			 		        },
+			 		        {field:'gardeId',title:'年级',width:50,
+			 		        	formatter:function(value,row,index){
+			 		        		return row.gradeStr;
+			 		        	}	
+			 		        },
+			 		       {field:'title',title:'职位',width:50,
+			 		        	formatter:function(value,row,index){
+			 		    	   		if(value=="1"){
+			 		    	   			return "学生";
+			 		    	   		}else if(value=="2"){
+			 		    	   			return "教师";
+			 		    	   		}
+			 		       		}
+			 		        }
 		 		       	]
 	 				], 
 	        toolbar: "#toolbar"
@@ -130,6 +155,7 @@
 	  			
 	  			//加载该年级下的班级
 	  			$("#clazzList").combobox("clear");
+	  			$("#clazzList").combobox({url: "/getGradeList?t="+new Date().getTime()});
 	  			$("#clazzList").combobox("options").queryParams = {parentId: newValue};
 	  			$("#clazzList").combobox("reload");
 	  		}
@@ -142,7 +168,6 @@
 	  		multiple: false, //可多选
 	  		editable: false, //不可编辑
 	  		method: "post",
-	  		url: "/getGradeList?t="+new Date().getTime(),
 	  		onChange: function(newValue, oldValue){
 	  			//加载班级下的学生
 	  			//var param ={};
@@ -167,7 +192,8 @@
 	  		data:gradeList,
 	  		onChange: function(newValue, oldValue){
 	  			//加载该年级下的班级
-	  			//$("#add_clazzList").combobox("clear");
+	  			$("#add_clazzList").combobox("clear");
+	  		  	$("#add_clazzList").combobox({url: "/getGradeList?t="+new Date().getTime()});
 	  			$("#add_clazzList").combobox("options").queryParams = {parentId: newValue};
 	  			$("#add_clazzList").combobox("reload");
 	  		},
@@ -177,18 +203,7 @@
 				//$(this).combobox("setValue", data[0].id);
 	  		}
 	  	});
-	  	$("#add_clazzList").combobox({
-	  		url: "/getGradeList?t="+new Date().getTime(),
-	  		onLoadSuccess: function(){
-		  		//默认选择第一条数据
-				var data = $(this).combobox("getData");;
-				$(this).combobox("setValue", data[0].id);
-	  		}
-	  	});
 	  	
-
-	  	
-
 	  	
 	  	//设置添加学生窗口
 	    $("#addDialog").dialog({

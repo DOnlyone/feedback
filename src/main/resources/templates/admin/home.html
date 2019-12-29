@@ -42,11 +42,11 @@
     <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;
         background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
         line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
-        <span style="float:right; padding-right:20px;" class="head"><span style="color:red; font-weight:bold;">${user.name}&nbsp;</span>您好&nbsp;&nbsp;&nbsp;<a href="/logout" id="loginOut">安全退出</a></span>
-        <span style="padding-left:10px; font-size: 16px; ">SWU学生信息管理系统</span>
+        <span style="float:right; padding-right:20px;" class="head"><span style="color:red; font-weight:bold;" >[[${session.session_user.userName}]]</span>&nbsp;您好&nbsp;&nbsp;&nbsp;<a href="/logout" id="loginOut">安全退出</a></span>
+        <span style="padding-left:10px; font-size: 16px; ">学生安全反馈系统后台管理系统</span>
     </div>
     <div region="south" split="true" style="height: 30px; background: #D2E0F2; ">
-        <div class="footer">Copyright &copy; SWU By 伯姜洲</div>
+        <div class="footer">Copyright &copy; SWU By ***</div>
     </div>
     <div region="west" hide="true" split="true" title="导航菜单" style="width:180px;" id="west">
 	<div id="nav" class="easyui-accordion" fit="true" border="false">
@@ -56,9 +56,7 @@
     </div>
     <div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
         <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
-        <iframe width=0 height=0 src="/welcome"></iframe>
-<!--         	<div th:replace="~{commons/header::topbar}"></div> -->
-<!-- 			<jsp:include page="/WEB-INF/view/admin/welcome.html" /> -->
+        <div th:replace="~{admin/welcome::context}"></div>
 		</div>
     </div>
 	

@@ -22,12 +22,12 @@ public class User {
     private String password;
     
     /**
-     * 班级
+     * 班级（数据字典dic_id)
      */
     private Integer classNum;
     
     /**
-     * 年级
+     * 年级（数据字典dic_id)
      */
     private Integer gardeId;
     
@@ -43,6 +43,15 @@ public class User {
     private Integer title;
 
     private Byte sex;
+    
+    /**
+     * 班级(汉字描述）
+     */
+    private String classStr;
+    /**
+     * 年级(汉字描述）
+     */
+    private String gradeStr;
     
     private List<Role> roleList;
 
@@ -144,12 +153,31 @@ public class User {
 		this.title = title;
 	}
 
+	public String getClassStr() {
+		return classStr;
+	}
+
+	public void setClassStr(String classStr) {
+		this.classStr = classStr;
+	}
+
+	public String getGradeStr() {
+		return gradeStr;
+	}
+
+	public void setGradeStr(String gradeStr) {
+		this.gradeStr = gradeStr;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userNo=" + userNo + ", userName=" + userName + ", password=" + password
-				+ ", classNum=" + classNum + ", gardeId=" + gardeId + ", email=" + email + ", mobile=" + mobile + ", sex="
-				+ sex + ", roleList=" + roleList + "]";
+				+ ", classNum=" + classNum + ", gardeId=" + gardeId + ", email=" + email + ", mobile=" + mobile
+				+ ", realName=" + realName + ", title=" + title + ", sex=" + sex + ", classStr=" + classStr
+				+ ", gradeStr=" + gradeStr + ", roleList=" + roleList + "]";
 	}
+
+	
     
     
 }

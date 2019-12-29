@@ -17,5 +17,6 @@ public interface LoginService {
 	public User getUserAuthority(String username) ;
 	
 	
+	
 
 }

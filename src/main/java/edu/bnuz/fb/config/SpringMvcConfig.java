@@ -1,9 +1,13 @@
 package edu.bnuz.fb.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+
+import edu.bnuz.fb.component.LoginInteceptor;
 
 /**
  * WebMvcConfigurerAdapter 已过时取而代之的是WebMvcConfigurationSupport 
@@ -12,14 +16,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 public class SpringMvcConfig extends WebMvcConfigurationSupport {
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/login").setViewName("index.html");
+		//WebMvcConfigurer.super.addViewControllers(registry);
+	}
 
 	
-	/*
-	 * @Override protected void addInterceptors(InterceptorRegistry registry) {
-	 * registry.addInterceptor(new
-	 * DemoInterceptor()).addPathPatterns("/login").excludePathPatterns("/static/**"
-	 * ); }
-	 */
 
 	    @Override	    
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -28,4 +31,12 @@ public class SpringMvcConfig extends WebMvcConfigurationSupport {
             .addResourceLocations("classpath:/META-INF/resources/webjars/");
 			super.addResourceHandlers(registry);
 	    }
+	    
+		@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			registry.addInterceptor(new LoginInteceptor())
+			.addPathPatterns("/**")
+			.excludePathPatterns("/index.html","/login","/asserts/**","/static/**","/webjars/**","/getVcode","/logout");
+			//WebMvcConfigurer.super.addInterceptors(registry);
+		}
 }

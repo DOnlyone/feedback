@@ -17,5 +17,6 @@ public interface UserService {
 	public ResultMsg updateUser(User user);
 	
 	public ResultMsg deleteUsers(List user);
+	
 
 }

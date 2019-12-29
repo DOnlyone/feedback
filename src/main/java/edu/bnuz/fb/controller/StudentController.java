@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageRowBounds;
+
 import edu.bnuz.fb.common.ResultMsg;
 import edu.bnuz.fb.entity.Dic;
 import edu.bnuz.fb.rbac.entity.User;
@@ -50,6 +52,7 @@ public class StudentController {
 	@RequestMapping("/findUsers")
 	public ResultMsg getUserList(User user){
 		System.out.println(user);
+		PageRowBounds page = new PageRowBounds(1, 10);
 		ResultMsg resultMsg = userService.findUserList(user);
 		return resultMsg;
 	}
