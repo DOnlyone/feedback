@@ -70,10 +70,12 @@
       <if test="userNo!=null">
       	and USER_NO = #{userNo,jdbcType=INTEGER}
       </if>
+      <if test="password != null" >
+        and PASSWORD= #{password,jdbcType=VARCHAR}
+      </if>
       <if test="realName!=null">
       	and REAL_NAME =#{realName,jdbcType=VARCHAR}
       </if>
-		
       <if test="classNum != null" >
         and CLASS_NUM = #{classNum,jdbcType=INTEGER}
       </if>

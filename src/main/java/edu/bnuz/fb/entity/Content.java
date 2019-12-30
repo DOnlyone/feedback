@@ -5,7 +5,7 @@ import java.util.Date;
 public class Content {
     private Long id;
 
-    private Long createuser;
+    private String createuser;
 
     private String context;
 
@@ -27,11 +27,11 @@ public class Content {
         this.id = id;
     }
 
-    public Long getCreateuser() {
+    public String getCreateuser() {
         return createuser;
     }
 
-    public void setCreateuser(Long createuser) {
+    public void setCreateuser(String createuser) {
         this.createuser = createuser;
     }
 

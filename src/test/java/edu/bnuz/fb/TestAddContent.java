@@ -26,8 +26,8 @@ public class TestAddContent {
 	@Test
 	public void testAddContent() {
 		Content tent = new Content();
+		tent.setCreateuser("zhangsan");
 		tent.setTitle("测试添加");
-		tent.setCreateuser(01l);
 		tent.setContext("helloworld");
 		tent.setCteateDate(new Date());
 		tent.setType(1);

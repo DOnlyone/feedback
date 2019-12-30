@@ -5,7 +5,7 @@
 		type="edu.bnuz.fb.entity.Content">
 		<result column="ID" property="id" jdbcType="BIGINT" />
 		<result column="CREATEUSER" property="createuser"
-			jdbcType="BIGINT" />
+			jdbcType="VARCHAR" />
 		<result column="CONTEXT" property="context" jdbcType="VARCHAR" />
 		<result column="TYPE" property="type" jdbcType="INTEGER" />
 		<result column="CTEATE_DATE" property="cteateDate"
@@ -29,7 +29,7 @@
 				#{id,jdbcType=BIGINT},
 			</if>
 			<if test="createuser != null">
-				#{createuser,jdbcType=BIGINT},
+				#{createuser,jdbcType=VARCHAR},
 			</if>
 			<if test="context != null">
 				#{context,jdbcType=VARCHAR},
@@ -58,7 +58,7 @@
 		insert into CONTENT (CREATEUSER, CONTEXT,
 		TYPE, CTEATE_DATE, CURRENT_NODE,
 		STATUS, TITLE)
-		values ( #{createuser,jdbcType=BIGINT},
+		values ( #{createuser,jdbcType=VARCHAR},
 		#{context,jdbcType=VARCHAR},
 		#{type,jdbcType=INTEGER}, #{cteateDate,jdbcType=DATE}, #{currentNode,jdbcType=BIGINT},
 		#{status,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR})
@@ -98,7 +98,7 @@
 				#{id,jdbcType=BIGINT},
 			</if>
 			<if test="createuser != null">
-				#{createuser,jdbcType=BIGINT},
+				#{createuser,jdbcType=VARCHAR},
 			</if>
 			<if test="context != null">
 				#{context,jdbcType=VARCHAR},
@@ -130,7 +130,7 @@
 		set
 
 		<if test="createuser != null">
-			CREATEUSER = #{createuser,jdbcType=BIGINT},
+			CREATEUSER = #{createuser,jdbcType=VARCHAR},
 		</if>
 		<if test="context != null">
 			CONTEXT = #{context,jdbcType=VARCHAR},

@@ -36,7 +36,7 @@ public class SpringMvcConfig extends WebMvcConfigurationSupport {
 		public void addInterceptors(InterceptorRegistry registry) {
 			registry.addInterceptor(new LoginInteceptor())
 			.addPathPatterns("/**")
-			.excludePathPatterns("/index.html","/login","/asserts/**","/static/**","/webjars/**","/getVcode","/logout");
+			.excludePathPatterns("/index.html","/login","/asserts/**","/static/**","/webjars/**","/getVcode","/logout","/api/**");
 			//WebMvcConfigurer.super.addInterceptors(registry);
 		}
 }
