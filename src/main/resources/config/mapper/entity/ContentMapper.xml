@@ -20,7 +20,7 @@
 		ID, CREATEUSER, CONTEXT, TYPE, CTEATE_DATE, CURRENT_NODE, STATUS, TITLE
 	</sql>
 
-	<select id="selectByParam" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.entity.Content">
+	<select id="listContent" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.entity.Content">
 		select
 		<include refid="Base_Column_List" />
 		from CONTENT

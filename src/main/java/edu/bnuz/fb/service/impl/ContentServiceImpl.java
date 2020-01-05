@@ -3,12 +3,14 @@ package edu.bnuz.fb.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import edu.bnuz.fb.common.ResultMsg;
 import edu.bnuz.fb.entity.Content;
 import edu.bnuz.fb.mapper.ContentMapper;
 import edu.bnuz.fb.service.ContentService;
 
+@Service
 public class ContentServiceImpl implements ContentService {
 	
 	@Autowired

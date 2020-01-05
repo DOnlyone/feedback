@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.bnuz.fb.common.ResultMsg;
 import edu.bnuz.fb.controller.LoginController;
+import edu.bnuz.fb.entity.Content;
 import edu.bnuz.fb.rbac.entity.User;
 import edu.bnuz.fb.rbac.service.UserService;
+import edu.bnuz.fb.service.ContentService;
 
 @Controller
 @RequestMapping("/api")
@@ -21,6 +23,9 @@ public class Wx_Controller {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ContentService contentService;
 	
 	@ResponseBody
 	@RequestMapping("/wx_login")
@@ -35,6 +40,20 @@ public class Wx_Controller {
 			msg = userService.findUserList(user);
 		}
 		return msg;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/saveContent")
+	public ResultMsg saveContent(Content content) {
+		logger.info("新增内容"+content);
+		return contentService.addContent(content);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/listContent")
+	public ResultMsg listContent(Content content) {
+		return contentService.listContent(content);
 	}
 
 }
