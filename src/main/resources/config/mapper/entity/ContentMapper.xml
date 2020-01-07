@@ -26,28 +26,28 @@
 		from CONTENT
 		<where>
 			<if test="id != null">
-				#{id,jdbcType=BIGINT},
+				and ID = #{id,jdbcType=BIGINT}
 			</if>
 			<if test="createuser != null">
-				#{createuser,jdbcType=VARCHAR},
+				and CREATEUSER =#{createuser,jdbcType=VARCHAR}
 			</if>
 			<if test="context != null">
-				#{context,jdbcType=VARCHAR},
+				and CONTEXT= #{context,jdbcType=VARCHAR}
 			</if>
 			<if test="type != null">
-				#{type,jdbcType=INTEGER},
+				and TYPE = #{type,jdbcType=INTEGER}
 			</if>
 			<if test="cteateDate != null">
-				#{cteateDate,jdbcType=DATE},
+				and CTEATE_DATE = #{cteateDate,jdbcType=DATE}
 			</if>
 			<if test="currentNode != null">
-				#{currentNode,jdbcType=BIGINT},
+				and CURRENT_NODE = #{currentNode,jdbcType=BIGINT}
 			</if>
 			<if test="status != null">
-				#{status,jdbcType=INTEGER},
+				and STATUS = #{status,jdbcType=INTEGER}
 			</if>
 			<if test="title != null">
-				#{title,jdbcType=VARCHAR},
+				and TITLE = #{title,jdbcType=VARCHAR}
 			</if>
 		</where>
 
