@@ -15,5 +15,7 @@ public interface ContentMapper {
 	public List<Content> listContent(Content content);
 	
 	public List<Content> updateContent(Content content);
+	
+	public List getContentDetail(Long itemId);
 
 }

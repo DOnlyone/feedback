@@ -10,5 +10,7 @@ public interface ContentService {
 	public ResultMsg listContent(Content content);
 	
 	public ResultMsg updateContent(Content content);
+	
+	public ResultMsg getContentDetail(Long itemId);
 
 }

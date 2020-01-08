@@ -10,6 +10,7 @@ import edu.bnuz.fb.entity.Content;
 import edu.bnuz.fb.mapper.ContentMapper;
 import edu.bnuz.fb.service.ContentService;
 
+
 @Service
 public class ContentServiceImpl implements ContentService {
 	
@@ -59,6 +60,12 @@ public class ContentServiceImpl implements ContentService {
 			msg.setResultMsg("保存记录失败，请联系管理员");
 		}
 		return msg;
+	}
+
+	@Override
+	public ResultMsg getContentDetail(Long itemId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -2,10 +2,12 @@ package edu.bnuz.fb.entity;
 
 import java.util.Date;
 
+import edu.bnuz.fb.rbac.entity.User;
+
 public class Content {
     private Long id;
 
-    private String createuser;
+    private User createUser;
 
     private String context;
 
@@ -15,6 +17,11 @@ public class Content {
 
     private Long currentNode;
 
+    /**
+     * status = 0 临时保存
+     * status = 1 已提交正在走流程
+     * status = 2 办理完结
+     */
     private Integer status;
 
     private String title;
@@ -27,12 +34,12 @@ public class Content {
         this.id = id;
     }
 
-    public String getCreateuser() {
-        return createuser;
+    public User getCreateUser() {
+        return createUser;
     }
 
-    public void setCreateuser(String createuser) {
-        this.createuser = createuser;
+    public void setCreateUser(User createUser) {
+        this.createUser = createUser;
     }
 
     public String getContext() {

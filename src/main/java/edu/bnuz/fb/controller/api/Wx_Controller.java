@@ -47,13 +47,20 @@ public class Wx_Controller {
 	@RequestMapping("/saveContent")
 	public ResultMsg saveContent(Content content) {
 		logger.info("新增内容"+content);
-		return contentService.addContent(content);
+		 //contentService.addContent(content);
+		 return null;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/listContent")
 	public ResultMsg listContent(Content content) {
 		return contentService.listContent(content);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getContentDetail")
+	public ResultMsg getContentDetail(Long itemId) {
+		return contentService.getContentDetail(itemId);
 	}
 
 }
