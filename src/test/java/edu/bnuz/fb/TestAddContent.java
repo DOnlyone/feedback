@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import edu.bnuz.fb.entity.Content;
 import edu.bnuz.fb.mapper.ContentMapper;
+import edu.bnuz.fb.rbac.entity.User;
 /**
  * SpringRunner 继承了SpringJUnit4ClassRunner，没有扩展任何功能；使用前者，名字简短而已
  * @author zookeeper
@@ -25,12 +26,14 @@ public class TestAddContent {
 	
 	@Test
 	public void testAddContent() {
+		User user = new User ();
+		user.setUserId(1l);
 		Content tent = new Content();
-		tent.setCreateuser("zhangsan");
+		tent.setCreateUser(user);
 		tent.setTitle("测试添加");
 		tent.setContext("helloworld");
 		tent.setCteateDate(new Date());
-		tent.setType(1);
+		tent.setType("1");
 		contentDao.insert(tent);
 		
 	}

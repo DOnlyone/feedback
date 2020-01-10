@@ -1,6 +1,7 @@
 package edu.bnuz.fb.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,9 +64,31 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	public ResultMsg getContentDetail(Long itemId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultMsg getContentDetail(Map param) {
+		ResultMsg msg = new ResultMsg();
+		List contentDetail = contentDao.getContentDetail(param);
+		if(contentDetail!=null&&contentDetail.size()>0) {
+			msg.setSuccess(true);
+			msg.setRows(contentDetail);
+			return msg;
+		}
+		msg.setSuccess(false);
+		msg.setResultMsg("没有找到相关记录");
+		return msg;
+	}
+
+	@Override
+	public ResultMsg getContentbyType(Map param) {
+		ResultMsg msg = new ResultMsg();
+		List contentDetail = contentDao.getContentbyType(param);
+		if(contentDetail!=null&&contentDetail.size()>0) {
+			msg.setSuccess(true);
+			msg.setRows(contentDetail);
+			return msg;
+		}
+		msg.setSuccess(false);
+		msg.setResultMsg("没有找到相关记录");
+		return msg;
 	}
 	
 	

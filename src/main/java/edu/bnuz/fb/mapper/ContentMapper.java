@@ -1,6 +1,7 @@
 package edu.bnuz.fb.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,8 @@ public interface ContentMapper {
 	
 	public List<Content> updateContent(Content content);
 	
-	public List getContentDetail(Long itemId);
+	public List getContentDetail(Map param);
+	
+	public List getContentbyType(Map param);
 
 }

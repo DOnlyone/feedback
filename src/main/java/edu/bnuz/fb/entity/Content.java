@@ -5,13 +5,14 @@ import java.util.Date;
 import edu.bnuz.fb.rbac.entity.User;
 
 public class Content {
+	
     private Long id;
 
     private User createUser;
 
     private String context;
 
-    private Integer type;
+    private String type;
 
     private Date cteateDate;
 
@@ -25,6 +26,8 @@ public class Content {
     private Integer status;
 
     private String title;
+    
+    private String urgent;
 
     public Long getId() {
         return id;
@@ -50,11 +53,11 @@ public class Content {
         this.context = context == null ? null : context.trim();
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -89,4 +92,23 @@ public class Content {
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
     }
+
+	public String getUrgent() {
+		return urgent;
+	}
+
+	public void setUrgent(String urgent) {
+		this.urgent = urgent;
+	}
+
+	@Override
+	public String toString() {
+		return "Content [id=" + id + ", createUser=" + createUser + ", context=" + context + ", type=" + type
+				+ ", cteateDate=" + cteateDate + ", currentNode=" + currentNode + ", status=" + status + ", title="
+				+ title + ", urgent=" + urgent + "]";
+	}
+
+
+    
+    
 }
