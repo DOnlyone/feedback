@@ -14,6 +14,8 @@ public class ResultMsg<T> implements Serializable {
 	private List<T> rows;
 	
 	private String resultData;
+	
+	private Long entityId;
 
 	public Long getTotal() {
 		return total;
@@ -54,12 +56,23 @@ public class ResultMsg<T> implements Serializable {
 	public void setResultData(String resultData) {
 		this.resultData = resultData;
 	}
+	
+
+	public Long getEntityId() {
+		return entityId;
+	}
+
+	public void setEntityId(Long entityId) {
+		this.entityId = entityId;
+	}
 
 	@Override
 	public String toString() {
 		return "ResultMsg [total=" + total + ", success=" + success + ", resultMsg=" + resultMsg + ", rows=" + rows
-				+ ", resultData=" + resultData + "]";
+				+ ", resultData=" + resultData + ", entityId=" + entityId + "]";
 	}
+
+
 	
 	
 

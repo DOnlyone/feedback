@@ -2,6 +2,7 @@ package edu.bnuz.fb.rbac.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import edu.bnuz.fb.common.ResultMsg;
 import edu.bnuz.fb.rbac.entity.User;
@@ -17,6 +18,8 @@ public interface UserService {
 	public ResultMsg updateUser(User user);
 	
 	public ResultMsg deleteUsers(List user);
+	
+	public User getUserInfo(Map param);
 	
 
 }

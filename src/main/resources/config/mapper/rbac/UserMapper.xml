@@ -45,11 +45,14 @@
 		LEFT JOIN ROLE t3 ON t2.ROLE_ID = t3.ROLE_ID
 		LEFT JOIN ROLE_TO_AUTH t4 ON t3.ROLE_ID = t4.ROLE_ID
 		LEFT JOIN AUTHORITY t5 ON t4.auth_id = t5.auth_id
+		where t1.USER_ID = #{userId}
+		<!-- 
 		<where>
 		<if test='userName!=null &amp;&amp; userName.equals("")'>
 			and USER_NAME = #{userName}
 		</if>
 		</where>
+		 -->
 	</select>
 
 

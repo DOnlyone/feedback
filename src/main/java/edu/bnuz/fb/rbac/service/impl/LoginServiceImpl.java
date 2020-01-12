@@ -25,12 +25,7 @@ public class LoginServiceImpl implements LoginService{
 
 	@Autowired
 	private UserMapper userMapper;
-	
 
-	
-	
-	
-	
 	
 	@Override
 	public User getUserByName(String name) {
@@ -100,8 +95,8 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public User getUserAuthority(String username) {
 		// TODO Auto-generated method stub
-		User user = userMapper.queryUserDetail(username);
-		return user;
+		//User user = userMapper.queryUserDetail(username);
+		return null;
 	}
 	
 

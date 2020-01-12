@@ -11,11 +11,11 @@ import edu.bnuz.fb.entity.Content;
 @Mapper
 public interface ContentMapper {
 	
-	public void insert(Content content);
+	public Long insert(Content content);
 	
 	public List<Content> listContent(Content content);
 	
-	public List<Content> updateContent(Content content);
+	public void updateContent(Content content);
 	
 	public List getContentDetail(Map param);
 	

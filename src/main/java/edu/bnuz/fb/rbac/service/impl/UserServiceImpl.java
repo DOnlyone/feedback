@@ -1,6 +1,7 @@
 package edu.bnuz.fb.rbac.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,6 +90,12 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return msg;
+	}
+	
+	@Override
+	public User getUserInfo(Map param) {
+		User queryUserDetail = userDao.queryUserDetail(param);
+		return queryUserDetail;
 	}
 
 }

@@ -23,7 +23,8 @@ public class ContentServiceImpl implements ContentService {
 	public ResultMsg addContent(Content content) {
 		ResultMsg msg = new ResultMsg();
 		try {
-			contentDao.insert(content);
+			Long contentId = contentDao.insert(content);
+			msg.setEntityId(contentId);
 			msg.setSuccess(true);
 			msg.setResultMsg("记录已保存");
 		}catch(Exception e) {

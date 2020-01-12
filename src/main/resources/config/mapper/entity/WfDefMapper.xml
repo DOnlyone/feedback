@@ -13,7 +13,7 @@
   </sql>
 
   
-  <select id="findWfDefList" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.entity.WfDef" >
+  <select id="queryNextNode" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.entity.WfDef" >
     select 
     <include refid="Base_Column_List" />
     from WF_DEF

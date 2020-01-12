@@ -4,11 +4,18 @@
   <resultMap id="BaseResultMap" type="edu.bnuz.fb.entity.WfInstance" >
     <id column="INSTANCE_ID" property="instanceId" jdbcType="BIGINT" />
     <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
-    <result column="NODE_ID" property="nodeId" jdbcType="BIGINT" />
+    <result column="BIZ_ID" property="biz_Id" jdbcType="BIGINT" />
+    <result column="CREATEUSER" property="createUser" jdbcType="BIGINT" />
+    <result column="OPINION" property="opinion" jdbcType="VARCHAR" />
+    <association property="nodeId" javaType="edu.bnuz.fb.entity.WfDef">
+  	    <id column="NODE_ID" property="nodeId" jdbcType="BIGINT" />
+  		<result column="NEXT_NODE" property="nextNode" jdbcType="BIGINT" />
+  		<result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
 
   <sql id="Base_Column_List" >
-    INSTANCE_ID, CREATE_DATE, NODE_ID
+    INSTANCE_ID, CREATE_DATE, NODE_ID,BIZ_ID,CREATEUSER,OPINION
   </sql>
   
 
@@ -20,8 +27,8 @@
      <if test="instanceId != null" >
         and INSTANCE_ID= #{instanceId,jdbcType=BIGINT},
       </if>
-      <if test="nodeId != null" >
-        and NODE_ID = #{nodeId,jdbcType=BIGINT},
+      <if test="wfDef != null" >
+        and NODE_ID = #{wfDef.nodeId,jdbcType=BIGINT},
       </if>
      </where>
   </select>
@@ -35,7 +42,7 @@
   
 
 
-  <insert id="insert" parameterType="edu.bnuz.fb.entity.WfInstance" >
+  <insert id="createWfInstance" parameterType="edu.bnuz.fb.entity.WfInstance" >
     insert into WF_INSTANCE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="instanceId != null" >
@@ -44,8 +51,14 @@
       <if test="createDate != null" >
         CREATE_DATE,
       </if>
-      <if test="nodeId != null" >
+      <if test="wfDef != null" >
         NODE_ID,
+      </if>
+      <if test="biz_Id != null" >
+        BIZ_ID,
+      </if>
+       <if test="createUser != null" >
+        CREATEUSER,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -55,8 +68,14 @@
       <if test="createDate != null" >
         #{createDate,jdbcType=DATE},
       </if>
-      <if test="nodeId != null" >
-        #{nodeId,jdbcType=BIGINT},
+      <if test="wfDef != null" >
+        #{wfDef.nodeId,jdbcType=BIGINT},
+      </if>
+      <if test="biz_Id != null" >
+        #{biz_Id,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -64,18 +83,31 @@
 
 
  
-  <update id="updateByPrimaryKeySelective" parameterType="edu.bnuz.fb.entity.WfInstance" >
+  <update id="updateWFInstance" parameterType="edu.bnuz.fb.entity.WfInstance" >
     update WF_INSTANCE
     <set >
       <if test="createDate != null" >
         CREATE_DATE = #{createDate,jdbcType=DATE},
       </if>
-      <if test="nodeId != null" >
-        NODE_ID = #{nodeId,jdbcType=BIGINT},
+      <if test="wfDef != null" >
+        NODE_ID = #{wfDef.nodeId,jdbcType=BIGINT},
       </if>
     </set>
     where INSTANCE_ID = #{instanceId,jdbcType=BIGINT}
   </update>
+  
+  <select id="selectBizWFInstace" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	  SELECT
+		t1.NODE_ID,
+		t2.NODE_NAME,
+		t1.CREATE_DATE,
+		t1.CREATEUSER
+	FROM
+		WF_INSTANCE t1
+	LEFT JOIN WF_DEF t2 ON t1.NODE_ID = t2.NODE_ID
+	WHERE
+		t1.BIZ_ID =?
+  </select>
   
   
 

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -16,7 +17,7 @@ public interface UserMapper {
 
     public void updateUserInfo(User user);
     
-    public User queryUserDetail(String username);
+    public User queryUserDetail(Map param);
     
     public void deleteUsers(List userIds);
     

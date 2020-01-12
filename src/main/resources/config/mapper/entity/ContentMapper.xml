@@ -64,7 +64,7 @@
 	</select>
 
 
-	<insert id="insert"  parameterType="edu.bnuz.fb.entity.Content">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="edu.bnuz.fb.entity.Content">
 		insert into CONTENT (CREATEUSER, CONTEXT,
 		TYPE,URGENT, CTEATE_DATE, CURRENT_NODE,
 		STATUS, TITLE)
@@ -107,7 +107,7 @@
 			<if test="id != null">
 				#{id,jdbcType=BIGINT},
 			</if>
-			<if test="createUser.userId != null">
+			<if test="createUser != null">
 				#{createUser.userId,jdbcType=VARCHAR},
 			</if>
 			<if test="context != null">
@@ -134,13 +134,13 @@
 
 
 
-	<update id="updateByExample"
-		parameterType="edu.bnuz.fb.entity.Content">
-		update CONTENT
-		set
+	<update id="updateContent"
+	parameterType="edu.bnuz.fb.entity.Content">
+	update CONTENT
+	<set>
 
-		<if test="createuser != null">
-			CREATEUSER = #{createuser,jdbcType=VARCHAR},
+		<if test="createUser != null">
+			CREATEUSER = #{createUser.userId,jdbcType=VARCHAR},
 		</if>
 		<if test="context != null">
 			CONTEXT = #{context,jdbcType=VARCHAR},
@@ -152,13 +152,14 @@
 			CURRENT_NODE = #{currentNode,jdbcType=BIGINT},
 		</if>
 		<if test="status != null">
-			#{status,jdbcType=INTEGER},STATUS = #{status,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
 		</if>
 		<if test="title != null">
-			TITLE = #{title,jdbcType=VARCHAR}
+			TITLE = #{title,jdbcType=VARCHAR},
 		</if>
-		where ID = #{id,jdbcType=BIGINT}
-	</update>
+	</set>
+	where ID = #{id,jdbcType=BIGINT}
+</update>
 	
 	<select id="getContentDetail" resultMap="BaseResultMap" parameterType="java.util.Map">
 			SELECT
@@ -189,10 +190,12 @@
 		FROM
 			CONTENT
 		WHERE
-			type IN
+			type IN 
+			
 		<foreach collection="types" item="item" separator="," open="(" close=")" index="">
 			#{item , jdbcType=VARCHAR}
 		</foreach>
+		 
 	
 	</select>
 </mapper>
