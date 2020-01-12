@@ -7,7 +7,7 @@
     <result column="BIZ_ID" property="biz_Id" jdbcType="BIGINT" />
     <result column="CREATEUSER" property="createUser" jdbcType="BIGINT" />
     <result column="OPINION" property="opinion" jdbcType="VARCHAR" />
-    <association property="nodeId" javaType="edu.bnuz.fb.entity.WfDef">
+    <association column="NODE_ID" property="nodeId" javaType="edu.bnuz.fb.entity.WfDef">
   	    <id column="NODE_ID" property="nodeId" jdbcType="BIGINT" />
   		<result column="NEXT_NODE" property="nextNode" jdbcType="BIGINT" />
   		<result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
