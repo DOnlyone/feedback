@@ -50,7 +50,7 @@ public class LoginController {
 		String userName = user.getUserName();
 		String password = user.getPassword();
 		String codeValue = (String) session.getAttribute("vcode");
-		if(codeValue!=null&&!codeValue.equals(vcode)) {
+		if(codeValue!=null&&!codeValue.equalsIgnoreCase(vcode)) {
 			model.addAttribute("errorMsg", "输入的验证码有误，请重新输入");
 			return "index";
 		}

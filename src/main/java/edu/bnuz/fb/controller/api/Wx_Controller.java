@@ -77,7 +77,7 @@ public class Wx_Controller {
 
 	@ResponseBody
 	@RequestMapping("/saveContent")
-	public ResultMsg saveContent(Content content) {
+	public ResultMsg saveContent(@RequestBody Content content) {
 		logger.info("新增内容" + content);
 		return contentService.addContent(content);
 		// return null;
@@ -85,7 +85,8 @@ public class Wx_Controller {
 
 	@ResponseBody
 	@RequestMapping("/listContent")
-	public ResultMsg listContent(Content content) {
+	public ResultMsg listContent(@RequestBody Content content) {
+		logger.info("传入参数有" + content);
 		return contentService.listContent(content);
 	}
 
@@ -109,30 +110,27 @@ public class Wx_Controller {
 	@RequestMapping("/submitDoc")
 	public ResultMsg submitDoc(@RequestBody Content content) {
 		ResultMsg msg = new ResultMsg();
-		try {
-			Long id = content.getId();
-			if (id == null) {
-				msg = contentService.addContent(content);
-			} else {
-				content.setCurrentNode(1l);
-				contentService.updateContent(content);
-			}
-
-			if (msg.isSuccess()) {
-				WfInstance wfInstance = new WfInstance();
-				Content saveContent = (Content) msg.getRows().get(0);
-				wfInstance.setBiz_Id(msg.getEntityId());
-				WfDef wfDef = new WfDef();
-				wfDef.setNodeId(1l);
-				wfInstance.setWfDef(wfDef);;
-				wfInstance.setCreateDate(new Date());
-				wfInstance.setCreateUser(content.getCreateUser().getUserId());
-				ResultMsg result = wfInstanceService.createInstance(wfInstance);
-				return result;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		Long id = content.getId();
+		if (id == null) {
+			msg = contentService.addContent(content);
+			id = msg.getEntityId();
+		} else {
+			content.setCurrentNode(1l);
+			msg = contentService.updateContent(content);
 		}
+
+		if (msg.isSuccess()) {
+			WfInstance wfInstance = new WfInstance();
+			wfInstance.setBiz_Id(id);
+			WfDef wfDef = new WfDef();
+			wfDef.setNodeId(1l);
+			wfInstance.setWfDef(wfDef);
+			wfInstance.setCreateDate(new Date());
+			wfInstance.setCreateUser(content.getCreateUser().getUserId());
+			msg = wfInstanceService.createInstance(wfInstance);
+			return msg;
+		}
+
 		return msg;
 	}
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.bnuz.fb.entity.entity.mapper.WfInstanceMapper" >
+<mapper namespace="edu.bnuz.fb.mapper.WfInstanceMapper" >
   <resultMap id="BaseResultMap" type="edu.bnuz.fb.entity.WfInstance" >
     <id column="INSTANCE_ID" property="instanceId" jdbcType="BIGINT" />
     <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
