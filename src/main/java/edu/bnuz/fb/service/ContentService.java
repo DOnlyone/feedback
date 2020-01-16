@@ -16,5 +16,7 @@ public interface ContentService {
 	public ResultMsg getContentDetail(Map param);
 	
 	public ResultMsg getContentbyType(Map param);
+	
+	public ResultMsg getContentListByUserpermission(Map  param);
 
 }

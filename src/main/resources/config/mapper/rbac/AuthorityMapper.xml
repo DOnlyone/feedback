@@ -5,19 +5,14 @@
     <result column="AUTH_ID" property="authId" jdbcType="BIGINT" />
     <result column="AUTH_NAME" property="authName" jdbcType="VARCHAR" />
     <result column="DESC" property="desc" jdbcType="CHAR" />
+    <result column="SCOPE" property="scope" jdbcType="BIGINT" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    AUTH_ID, AUTH_NAME, DESC
+    AUTH_ID, AUTH_NAME, DESC,SCOPE
 </sql>
 
 
-  <insert id="addAuthority" parameterType="edu.bnuz.fb.rbac.entity.Authority" >
-    insert into AUTHORITY (AUTH_ID, AUTH_NAME, DESC
-      )
-    values (#{authId,jdbcType=BIGINT}, #{authName,jdbcType=VARCHAR}, #{desc,jdbcType=CHAR}
-      )
-  </insert>
 
   <select id="queryAuthList" resultMap="BaseResultMap" parameterType="edu.bnuz.fb.rbac.entity.Authority">
     SELECT <include refid="Base_Column_List" /> FROM AUTHORITY
@@ -49,7 +44,7 @@
     </where>
   </update>
 
-  <insert id="insertSelective" parameterType="edu.bnuz.fb.rbac.entity.Authority" >
+  <insert id="addAuthority" parameterType="edu.bnuz.fb.rbac.entity.Authority" >
     insert into AUTHORITY
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="authId != null" >
@@ -61,6 +56,9 @@
       <if test="desc != null" >
         DESC,
       </if>
+      <if test="scope != null" >
+        SCOPE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="authId != null" >
@@ -71,6 +69,9 @@
       </if>
       <if test="desc != null" >
         #{desc,jdbcType=CHAR},
+      </if>
+      <if test="scope != null" >
+      	#{scope,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>

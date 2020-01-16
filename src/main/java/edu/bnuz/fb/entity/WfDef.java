@@ -5,7 +5,9 @@ public class WfDef {
 
     private Long nextNode;
 
-    private String nodeName;
+    private String processRole;
+    
+    private String nodeDesc;
 
     public Long getNodeId() {
         return nodeId;
@@ -23,11 +25,23 @@ public class WfDef {
         this.nextNode = nextNode;
     }
 
-    public String getNodeName() {
-        return nodeName;
-    }
+	public String getProcessRole() {
+		return processRole;
+	}
 
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName == null ? null : nodeName.trim();
-    }
+	public void setProcessRole(String processRole) {
+		this.processRole = processRole;
+	}
+
+	public String getNodeDesc() {
+		return nodeDesc;
+	}
+
+	public void setNodeDesc(String nodeDesc) {
+		this.nodeDesc = nodeDesc;
+	}
+	
+	
+
+
 }

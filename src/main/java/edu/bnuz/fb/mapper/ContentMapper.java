@@ -20,5 +20,7 @@ public interface ContentMapper {
 	public List getContentDetail(Map param);
 	
 	public List getContentbyType(Map param);
+	
+	public List queryContentByProcessRole(Map param);
 
 }

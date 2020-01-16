@@ -89,6 +89,18 @@ public class Wx_Controller {
 		logger.info("传入参数有" + content);
 		return contentService.listContent(content);
 	}
+	
+	/**
+	 *      根据用户获取contentList
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getContentsByUser")
+	public ResultMsg getContentsByUser(@RequestParam Map param) {
+		
+		logger.info("传入参数有" + param);
+		return contentService.getContentListByUserpermission(param);
+	}
 
 	@ResponseBody
 	@RequestMapping("/getContentDetail")
@@ -96,10 +108,10 @@ public class Wx_Controller {
 		logger.info("传入参数有" + param);
 		return contentService.getContentDetail(param);
 	}
-
+ 
 	@ResponseBody
 	@RequestMapping("/getContentbyType")
-	public ResultMsg getContentbyType(@RequestParam List types) {
+	public ResultMsg getContentbyType(@RequestBody List<String> types) {
 		logger.info("传入参数有" + types);
 		Map param = new HashMap();
 		param.put("types", types);
@@ -163,7 +175,7 @@ public class Wx_Controller {
 				wfInstance.setCreateUser(Long.valueOf(userId));
 				wfInstance.setBiz_Id(Long.valueOf(Id));
 				msg = wfInstanceService.createInstance(wfInstance);
-				msg.setResultMsg("已经提交到" + wfDef.getNodeName());
+				msg.setResultMsg("已经提交到下一个节点");
 			} else {// 下一个节点为null则办结
 				content.setStatus(2);
 				msg = contentService.updateContent(content);

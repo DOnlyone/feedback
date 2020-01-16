@@ -195,7 +195,31 @@
 		<foreach collection="types" item="item" separator="," open="(" close=")" index="">
 			#{item , jdbcType=VARCHAR}
 		</foreach>
-		 
+	</select>
 	
+	<select id="queryContentByProcessRole" resultMap="BaseResultMap" parameterType="java.util.Map" >
+		SELECT
+			ID,
+			CREATEUSER,
+			CONTEXT,
+			TYPE,
+			URGENT,
+			CTEATE_DATE,
+			CURRENT_NODE,
+			STATUS,
+			t1.TITLE
+		FROM
+			CONTENT t1
+		JOIN WF_DEF t2 ON t1.CURRENT_NODE = t2.NODE_ID
+		JOIN `USER` t3 ON t1.CREATEUSER = t3.USER_ID
+		WHERE
+			t3.CLASS_NUM IN 
+		<foreach collection="scopeList" open="(" close=")" separator="," item="item" index="i" >
+         	#{item}
+  		</foreach>
+  		AND INSTR (#{roleListStr,jdbcType=VARCHAR},t2.PROCESS_ROLE )>0
+  		<if test="title!=null &amp;&amp; !title.equals('')">
+  			and t1.TITLE = #{title,jdbcType=VARCHAR}
+  		</if>
 	</select>
 </mapper>

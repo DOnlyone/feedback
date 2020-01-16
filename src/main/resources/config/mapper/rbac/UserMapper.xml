@@ -24,6 +24,7 @@
 	        <id column="AUTH_ID" property="authId" jdbcType="BIGINT" />
 		    <result column="AUTH_NAME" property="authName" jdbcType="VARCHAR" />
 		    <result column="DESC" property="desc" jdbcType="CHAR" />
+		    <result column="SCOPE" property="scope" jdbcType="BIGINT" />
 	    </collection>
 	</collection>
   </resultMap>
@@ -39,7 +40,7 @@
 	<select id="queryUserDetail" resultMap="BaseResultMap" parameterType="java.util.Map" >
 		SELECT
 			t1.USER_ID,t1.USER_NAME,t1.USER_NO,t1.REAL_NAME,t1.MOBILE,t1.TITLE,t1.SEX,t1.EMAIL,t3.ROLE_ID,
-			t3.ROLE_NAME,t5.AUTH_ID,t5.AUTH_NAME,t5.`DESC`
+			t3.ROLE_NAME,t5.AUTH_ID,t5.AUTH_NAME,t5.`DESC`,t5.SCOPE
 		FROM `USER` t1
 		LEFT JOIN USER_TO_ROLE t2 ON t1.USER_ID = t2.USER_ID
 		LEFT JOIN ROLE t3 ON t2.ROLE_ID = t3.ROLE_ID

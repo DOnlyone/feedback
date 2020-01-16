@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import edu.bnuz.fb.common.ResultMsg;
+import edu.bnuz.fb.rbac.entity.Authority;
 import edu.bnuz.fb.rbac.entity.User;
 import edu.bnuz.fb.rbac.mapper.UserMapper;
 import edu.bnuz.fb.rbac.service.UserService;
@@ -97,5 +98,14 @@ public class UserServiceImpl implements UserService {
 		User queryUserDetail = userDao.queryUserDetail(param);
 		return queryUserDetail;
 	}
+	
+	
+
+	@Override
+	public List<Authority> getUserPremission(Map map) {
+		List<Authority> userPremission = userDao.getUserPremission(map);
+		return userPremission;
+	}
+
 
 }

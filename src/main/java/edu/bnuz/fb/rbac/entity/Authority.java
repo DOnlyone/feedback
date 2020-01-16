@@ -6,6 +6,8 @@ public class Authority {
     private String authName;
 
     private String desc;
+    
+    private Long scope;
 
     public Long getAuthId() {
         return authId;
@@ -30,4 +32,14 @@ public class Authority {
     public void setDesc(String desc) {
         this.desc = desc == null ? null : desc.trim();
     }
+
+	public Long getScope() {
+		return scope;
+	}
+
+	public void setScope(Long scope) {
+		this.scope = scope;
+	}
+    
+    
 }

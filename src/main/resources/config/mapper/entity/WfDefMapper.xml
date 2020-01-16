@@ -4,12 +4,13 @@
   <resultMap id="BaseResultMap" type="edu.bnuz.fb.entity.WfDef" >
     <id column="NODE_ID" property="nodeId" jdbcType="BIGINT" />
     <result column="NEXT_NODE" property="nextNode" jdbcType="BIGINT" />
-    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="PROCESS_ROLE" property="processRole" jdbcType="VARCHAR" />
+    <result column="NODE_DESC" property="nodeDesc" jdbcType="VARCHAR" />
   </resultMap>
  
  
   <sql id="Base_Column_List" >
-    NODE_ID, NEXT_NODE, NODE_NAME
+    NODE_ID, NEXT_NODE, PROCESS_ROLE,NODE_DESC
   </sql>
 
   
@@ -24,8 +25,11 @@
       <if test="nextNode != null" >
         where NEXT_NODE= #{nextNode,jdbcType=BIGINT},
       </if>
-      <if test="nodeName != null" >
-        where NODE_NAME= #{nodeName,jdbcType=VARCHAR},
+      <if test="nodeDesc != null" >
+        where NODE_DESC= #{nodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="processRole != null" >
+        where PROCESS_ROLE= #{processRole,jdbcType=VARCHAR},
       </if>
     </where>
   </select>
@@ -45,8 +49,11 @@
       <if test="nextNode != null" >
         NEXT_NODE,
       </if>
-      <if test="nodeName != null" >
-        NODE_NAME,
+      <if test="nodeDesc != null" >
+        NODE_DESC,
+      </if>
+      <if test="processRole != null" >
+        PROCESS_ROLE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -56,27 +63,34 @@
       <if test="nextNode != null" >
         #{nextNode,jdbcType=BIGINT},
       </if>
-      <if test="nodeName != null" >
-        #{nodeName,jdbcType=VARCHAR},
+      <if test="nodeDesc != null" >
+        #{nodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="processRole != null" >
+        #{processRole,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
 
 
- 
-  
-  
   <update id="updateByPrimaryKeySelective" parameterType="edu.bnuz.fb.entity.WfDef" >
     update WF_DEF
     <set >
       <if test="nextNode != null" >
         NEXT_NODE = #{nextNode,jdbcType=BIGINT},
       </if>
-      <if test="nodeName != null" >
-        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      <if test="processRole != null" >
+        PROCESS_ROLE = #{processRole,jdbcType=VARCHAR},
       </if>
     </set>
     where NODE_ID = #{nodeId,jdbcType=BIGINT}
   </update>
+  
+  <select id="getWfDefListByRole"  parameterType="java.util.List" resultType="java.lang.String" >
+  	select PROCESS_ROLE from WF_DEF where PROCESS_ROLE IN
+  	<foreach collection="list" open="(" close=")" separator="," item="item" index="i" >
+         #{item}
+  	</foreach>
+  </select>
 
 </mapper>

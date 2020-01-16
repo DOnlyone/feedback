@@ -1,5 +1,6 @@
 package edu.bnuz.fb.rbac.mapper;
 
+import edu.bnuz.fb.rbac.entity.Authority;
 import edu.bnuz.fb.rbac.entity.User;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -20,6 +21,8 @@ public interface UserMapper {
     public User queryUserDetail(Map param);
     
     public void deleteUsers(List userIds);
+
+	public List<Authority> getUserPremission(Map map);
     
     
 
